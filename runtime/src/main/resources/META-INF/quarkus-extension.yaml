@@ -1,0 +1,23 @@
+---
+artifact: ${project.groupId}:${project.artifactId}:${project.version}
+name: "BareMetalCode logging json"
+metadata:
+    keywords:
+        - "logging"
+        - "json"
+        - "formatter"
+        - "structured"
+        - "jackson"
+    categories:
+        - "core"
+    status: "preview"
+    config:
+        - "quarkus.log.console.json."
+    built-with-quarkus-core: "3.18.1"
+    requires-quarkus-core: "[3.18,)"
+    minimum-java-version: "17"
+    extension-dependencies:
+        - "io.quarkus:quarkus-arc"
+        - "io.quarkus:quarkus-core"
+        - "io.quarkus:quarkus-jackson"
+        - "io.quarkus:quarkus-jsonp"
