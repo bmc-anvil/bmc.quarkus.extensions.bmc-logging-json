@@ -6,13 +6,14 @@ import java.util.List;
 import java.util.Optional;
 
 import com.bmc.extensions.loggingjson.runtime.config.properties.JsonConfig;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
-import static com.bmc.extensions.loggingjson.runtime.utils.DateTimeUtils.configureClientDateTime;
+import static com.bmc.extensions.loggingjson.runtime.infrastructure.utils.DateTimeUtils.configureClientDateTime;
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
+import static com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS_TIMESTAMPS;
 
 /**
  * FIXME: add documentation: focus on "description", "why", "how", "caveats"[...] more that simple descriptions, as those should be
@@ -47,22 +48,20 @@ public class JacksonMapperFactory {
         mapper.registerModule(module);
     }
 
-    public static ObjectMapper getJacksonMapper(final JsonConfig jsonConfig) {
+    public static JsonFactory getJacksonJSONFactory(final JsonConfig jsonConfig) {
         final ObjectMapper mapper = new ObjectMapper();
 
-        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        mapper.disable(WRITE_DATES_AS_TIMESTAMPS);
+        mapper.setSerializationInclusion(NON_NULL);
         mapper.registerModule(configureClientDateTime(jsonConfig));
 
         Optional.ofNullable(jsonConfig.clientSerializers.customSerializers)
-                .map(customSerializers -> customSerializers
-                        .values()
-                        .stream()
-                        .map(customSerializer -> customSerializer.className)
-                        .toList())
+                .map(customSerializersMap -> customSerializersMap.values()
+                                                                 .stream()
+                                                                 .toList())
                 .ifPresent(customSerializers -> addCustomSerializers(customSerializers, mapper));
 
-        return mapper;
+        return mapper.getFactory();
     }
 
 }

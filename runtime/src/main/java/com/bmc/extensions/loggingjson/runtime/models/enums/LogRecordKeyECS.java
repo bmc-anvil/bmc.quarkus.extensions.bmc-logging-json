@@ -9,7 +9,7 @@ import lombok.Getter;
  * @author BareMetalCode
  */
 @Getter
-public enum EcsLogRecordKey {
+public enum LogRecordKeyECS {
 
     EXCEPTION_MESSAGE("message", "error.message"),
     EXCEPTION_REFERENCE_ID("refId", "event.id"),
@@ -28,7 +28,7 @@ public enum EcsLogRecordKey {
     private final String ecsValue;
     private final String standardValue;
 
-    EcsLogRecordKey(final String standardValue, final String ecsValue) {
+    LogRecordKeyECS(final String standardValue, final String ecsValue) {
         this.standardValue = standardValue;
         this.ecsValue      = ecsValue;
     }

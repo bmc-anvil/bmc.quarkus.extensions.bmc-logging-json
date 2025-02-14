@@ -1,11 +1,11 @@
-package com.bmc.extensions.loggingjson.runtime.utils;
+package com.bmc.extensions.loggingjson.runtime.infrastructure.utils;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import com.bmc.extensions.loggingjson.runtime.config.properties.JsonConfig;
-import com.bmc.extensions.loggingjson.runtime.serializers.InstantSerializer;
+import com.bmc.extensions.loggingjson.runtime.infrastructure.serializers.InstantSerializer;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;

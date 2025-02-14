@@ -35,7 +35,7 @@ public class ClientSerializerConfig {
      */
     @ConfigDocMapKey("serializer-name")
     @ConfigItem
-    public Map<String, CustomSerializer> customSerializers;
+    public Map<String, String> customSerializers;
 
     /**
      * Convenience formatter for client app {@link Instant} instances using {@link DateTimeFormatter} string patterns

@@ -17,7 +17,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
  *
  * @author BareMetalCode
  */
-public class LoggingJsonProcessorTest {
+public class LoggingJsonStepBuilderTest {
 
     @RegisterExtension
     static final QuarkusUnitTest QUARKUS_UNIT_TEST = new QuarkusUnitTest()
@@ -37,7 +37,7 @@ public class LoggingJsonProcessorTest {
         testingJson.inner = inner;
     }
 
-    @RepeatedTest(5)
+    @RepeatedTest(5000)
     public void test() {
         logger.infof("%s ", Map.of("TEST:::TEST", testingJson));
     }

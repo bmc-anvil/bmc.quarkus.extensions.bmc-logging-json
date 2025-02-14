@@ -28,14 +28,14 @@ public class JsonConfig {
      */
     @ConfigItem
     @ConfigDocMapKey("field-name")
-    public Map<String, AdditionalField> additionalFieldsTop;
+    public Map<String, String> additionalFieldsTop;
 
     /**
      * Additional fields to be appended in the JSON logs and will appear wrapped under the "additionalFields" key.
      */
     @ConfigItem
     @ConfigDocMapKey("field-name")
-    public Map<String, AdditionalField> additionalFieldsWrapped;
+    public Map<String, String> additionalFieldsWrapped;
 
     /**
      * Custom Serializers that will apply to the client application and not to the log itself
@@ -63,7 +63,7 @@ public class JsonConfig {
      * Override keys with custom values. Omitting this value indicates that no key overrides will be applied.
      */
     @ConfigItem
-    public Map<String, KeyOverride>                     keyOverrides;
+    public Map<String, String>                     keyOverrides;
     /**
      * The date format to use on the log record output.
      * <p>
@@ -111,7 +111,7 @@ public class JsonConfig {
      *
      * @see System#lineSeparator()
      */
-    @ConfigItem()
+    @ConfigItem
     public Optional<String>                        recordDelimiter;
 
 }

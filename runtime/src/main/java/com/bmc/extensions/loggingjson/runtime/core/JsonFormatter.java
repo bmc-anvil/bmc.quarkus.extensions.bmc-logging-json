@@ -10,8 +10,8 @@ import com.fasterxml.jackson.core.JsonFactory;
 import org.jboss.logmanager.ExtFormatter;
 import org.jboss.logmanager.ExtLogRecord;
 
-import static com.bmc.extensions.loggingjson.runtime.utils.StructuredLogUtils.*;
 import static com.bmc.extensions.loggingjson.runtime.core.StructuredLogWriter.renderStructuredLog;
+import static com.bmc.extensions.loggingjson.runtime.utils.StructuredLogDataUtils.*;
 
 /**
  * FIXME: add documentation: focus on "description", "why", "how", "caveats"[...] more that simple descriptions, as those should be

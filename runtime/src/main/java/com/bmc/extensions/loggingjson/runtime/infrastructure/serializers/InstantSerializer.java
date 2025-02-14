@@ -1,4 +1,4 @@
-package com.bmc.extensions.loggingjson.runtime.serializers;
+package com.bmc.extensions.loggingjson.runtime.infrastructure.serializers;
 
 import java.io.IOException;
 import java.time.Instant;
@@ -6,7 +6,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
-import com.bmc.extensions.loggingjson.runtime.utils.DateTimeUtils;
+import com.bmc.extensions.loggingjson.runtime.infrastructure.utils.DateTimeUtils;
 import com.bmc.extensions.loggingjson.runtime.config.properties.JsonConfig;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;

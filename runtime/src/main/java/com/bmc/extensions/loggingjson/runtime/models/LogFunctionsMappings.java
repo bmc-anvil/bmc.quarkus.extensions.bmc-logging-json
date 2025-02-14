@@ -23,14 +23,14 @@ import static java.util.Map.ofEntries;
  * @author BareMetalCode
  */
 @Getter
-public class RecordTemplate {
+public class LogFunctionsMappings {
 
     private static final Function<ExtLogRecord, String>              GET_HOSTNAME           = ExtLogRecord::getHostName;
     private static final Function<ExtLogRecord, String>              GET_LEVEL              = extLogRecord -> extLogRecord.getLevel().getName();
     private static final Function<ExtLogRecord, String>              GET_LOGGER_CLASS_NAME  = ExtLogRecord::getLoggerClassName;
     private static final Function<ExtLogRecord, String>              GET_LOGGER_NAME        = ExtLogRecord::getLoggerName;
     private static final Function<ExtLogRecord, Map<String, String>> GET_MDC                = ExtLogRecord::getMdcCopy;
-    private static final Function<ExtLogRecord, Object>              GET_MESSAGE            = RecordTemplate::getStructuredMessage;
+    private static final Function<ExtLogRecord, Object>              GET_MESSAGE            = LogFunctionsMappings::getStructuredMessage;
     private static final Function<ExtLogRecord, String>              GET_NDC                = ExtLogRecord::getNdc;
     private static final Function<ExtLogRecord, Long>                GET_PROCESS_ID         = ExtLogRecord::getProcessId;
     private static final Function<ExtLogRecord, String>              GET_PROCESS_NAME       = ExtLogRecord::getProcessName;
