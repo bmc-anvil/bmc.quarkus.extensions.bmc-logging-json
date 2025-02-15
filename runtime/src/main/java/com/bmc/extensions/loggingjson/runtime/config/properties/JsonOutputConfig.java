@@ -12,7 +12,7 @@ import static io.quarkus.runtime.annotations.ConfigPhase.RUN_TIME;
  *
  * @author BareMetalCode
  */
-@ConfigMapping(prefix = "log")
+@ConfigMapping(prefix = "quarkus.log")
 @ConfigRoot(phase = RUN_TIME)
 public interface JsonOutputConfig {
 
