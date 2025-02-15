@@ -15,8 +15,7 @@ import io.quarkus.runtime.annotations.ConfigItem;
 import org.jboss.logmanager.formatters.StructuredFormatter;
 
 /**
- * FIXME: add documentation: focus on "description", "why", "how", "caveats"[...] more that simple descriptions, as those should be
- *        inferred from code and names as much as possible.
+ * Configuration class for structuring JSON output.
  *
  * @author BareMetalCode
  */
@@ -48,22 +47,26 @@ public class JsonConfig {
      * Determine whether to enable the JSON console formatting extension, which disables "normal" console formatting.
      */
     @ConfigItem(defaultValue = "true")
-    public boolean                                 enable;
+    public boolean enable;
+
     /**
      * The exception output type to specify.
      */
     @ConfigItem(defaultValue = "detailed")
     public StructuredFormatter.ExceptionOutputType exceptionOutputType;
+
     /**
      * Keys to be excluded from the JSON output.
      */
     @ConfigItem
-    public Optional<Set<String>>                   excludedKeys;
+    public Optional<Set<String>> excludedKeys;
+
     /**
      * Override keys with custom values. Omitting this value indicates that no key overrides will be applied.
      */
     @ConfigItem
-    public Map<String, String>                     keyOverrides;
+    public Map<String, String> keyOverrides;
+
     /**
      * The date format to use on the log record output.
      * <p>
@@ -77,12 +80,14 @@ public class JsonConfig {
      * <a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/time/format/DateTimeFormatter.html">DateTimeFormatter Patterns</a>
      */
     @ConfigItem
-    public Optional<String>                        logDateTimeFormat;
+    public Optional<String> logDateTimeFormat;
+
     /**
      * Specify the format of the produced JSON
      */
     @ConfigItem(defaultValue = "DEFAULT")
-    public LogFormat                               logFormat;
+    public LogFormat logFormat;
+
     /**
      * The zone ID to use in an accepted ZoneId format.
      * <p>
@@ -90,12 +95,14 @@ public class JsonConfig {
      * Mind that the system is where the JVM is running by calling ZoneId::systemDefault
      */
     @ConfigItem
-    public Optional<String>                        logZoneId;
+    public Optional<String> logZoneId;
+
     /**
      * Enable "pretty printing" of the JSON record. Note that some JSON parsers will fail to read the pretty printed output.
      */
     @ConfigItem(defaultValue = "false")
-    public boolean                                 prettyPrint;
+    public boolean prettyPrint;
+
     /**
      * Enable printing of more details in the log.
      * <p>
@@ -103,7 +110,8 @@ public class JsonConfig {
      * source class name, source file name, source method name, and source line number.
      */
     @ConfigItem(defaultValue = "false")
-    public Boolean                                 printDetails;
+    public Boolean printDetails;
+
     /**
      * The special end-of-record delimiter to be used.
      * <p>
@@ -112,6 +120,6 @@ public class JsonConfig {
      * @see System#lineSeparator()
      */
     @ConfigItem
-    public Optional<String>                        recordDelimiter;
+    public Optional<String> recordDelimiter;
 
 }

@@ -44,7 +44,7 @@ public class StructuredLogFactory {
         final StructuredLog        structuredLog        = new StructuredLog();
 
         structuredLog.setRecordKeys(buildDefaultKeys());
-        structuredLog.setBasicRecordMapping(logFunctionsMappings.getBasicRecordMapping());
+        structuredLog.setCoreRecordMapping(logFunctionsMappings.getBasicRecordMapping());
         structuredLog.setExceptionMapping(logFunctionsMappings.getExceptionMapping());
         structuredLog.setDetailsMapping(jsonConfig.printDetails ? logFunctionsMappings.getDetailsMapping() : null);
         setStructuredLogInstantFormatting(structuredLog, jsonConfig);

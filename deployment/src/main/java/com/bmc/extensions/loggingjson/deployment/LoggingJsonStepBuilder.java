@@ -17,6 +17,8 @@ import static com.bmc.extensions.loggingjson.runtime.models.enums.LogOutput.FILE
  * {@link  BuildStep} class responsible for configuring and enabling JSON log formatters
  * <p>
  * The configuration depends on the JSON-related settings provided through the application's configuration files.
+ *
+ * @author BareMetalCode
  */
 public class LoggingJsonStepBuilder {
 

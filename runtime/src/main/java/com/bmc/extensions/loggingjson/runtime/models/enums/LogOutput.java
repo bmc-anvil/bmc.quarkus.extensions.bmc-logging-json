@@ -1,8 +1,11 @@
 package com.bmc.extensions.loggingjson.runtime.models.enums;
 
 /**
- * FIXME: add documentation: focus on "description", "why", "how", "caveats"[...] more that simple descriptions, as those should be
- *        inferred from code and names as much as possible.
+ * Enum representing the output targets for log messages.
+ * <p>
+ * Currently supported targets for log output:<br>
+ * - {@code CONSOLE}: Log messages are directed to standard console output.<br>
+ * - {@code FILE}: Log messages are written to a file.
  *
  * @author BareMetalCode
  */

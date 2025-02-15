@@ -3,8 +3,7 @@ package com.bmc.extensions.loggingjson.runtime.models.enums;
 import lombok.Getter;
 
 /**
- * FIXME: add documentation: focus on "description", "why", "how", "caveats"[...] more that simple descriptions, as those should be
- *        inferred from code and names as much as possible.
+ * Enum representing additional fields and their corresponding values used in ECS (Elastic Common Schema) log format.
  *
  * @author BareMetalCode
  */

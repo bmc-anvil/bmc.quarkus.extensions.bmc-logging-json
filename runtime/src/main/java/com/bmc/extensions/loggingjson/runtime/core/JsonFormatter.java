@@ -10,12 +10,15 @@ import com.fasterxml.jackson.core.JsonFactory;
 import org.jboss.logmanager.ExtFormatter;
 import org.jboss.logmanager.ExtLogRecord;
 
-import static com.bmc.extensions.loggingjson.runtime.core.StructuredLogWriter.renderStructuredLog;
+import static com.bmc.extensions.loggingjson.runtime.core.StructuredLogWriter.formatRecord;
 import static com.bmc.extensions.loggingjson.runtime.utils.StructuredLogDataUtils.*;
 
 /**
- * FIXME: add documentation: focus on "description", "why", "how", "caveats"[...] more that simple descriptions, as those should be
- *        inferred from code and names as much as possible.
+ * Responsible for formatting log records into a JSON representation.
+ * <p>
+ * This class will get every component it requires already preconfigured in previous steps.
+ * <p>
+ * This is the class that does the actual JSON serializing of structured objects on client applications.
  *
  * @author BareMetalCode
  */
@@ -31,16 +34,27 @@ public class JsonFormatter extends ExtFormatter {
         this.structuredLog = structuredLog;
     }
 
+    /**
+     * Formats the provided log record into a JSON representation by populating various fields
+     * and finally printing the {@link StructuredLog} template.
+     * <p>
+     * Populating the different fields is conditional to their existence or particular conditions.<br>
+     * I.e., Exceptions are only populated if they exist.
+     *
+     * @param record the {@link ExtLogRecord} to format.
+     *
+     * @return a JSON string representation {@link ExtLogRecord}.
+     */
     @Override
     public String format(final ExtLogRecord record) {
-        final Map<String, Object> fieldsToRender = new HashMap<>();
+        final Map<String, Object> fieldsToPrint = new HashMap<>();
 
-        populateBasicRecordFields(record, structuredLog, fieldsToRender);
-        populateAdditionalFields(structuredLog, fieldsToRender);
-        populateRecordDetails(record, structuredLog, fieldsToRender, jsonConfig.printDetails);
-        populateRecordException(record, structuredLog, fieldsToRender);
+        populateCoreFields(record, structuredLog, fieldsToPrint);
+        populateAdditionalFieldsIfAny(structuredLog, fieldsToPrint);
+        populateDetailsIfConfigured(record, structuredLog, fieldsToPrint, jsonConfig.printDetails);
+        populateExceptionIfPresent(record, structuredLog, fieldsToPrint);
 
-        return renderStructuredLog(fieldsToRender, jsonFactory, jsonConfig);
+        return formatRecord(fieldsToPrint, jsonFactory, jsonConfig);
     }
 
 }

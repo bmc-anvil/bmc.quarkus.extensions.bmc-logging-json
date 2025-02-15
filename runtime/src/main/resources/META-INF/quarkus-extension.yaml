@@ -13,6 +13,7 @@ metadata:
     status: "preview"
     config:
         - "quarkus.log.console.json."
+        - "quarkus.log.file.json."
     built-with-quarkus-core: "3.18.1"
     requires-quarkus-core: "[3.18,)"
     minimum-java-version: "17"

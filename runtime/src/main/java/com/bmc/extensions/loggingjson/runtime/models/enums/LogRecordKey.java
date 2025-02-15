@@ -3,8 +3,7 @@ package com.bmc.extensions.loggingjson.runtime.models.enums;
 import lombok.Getter;
 
 /**
- * FIXME: add documentation: focus on "description", "why", "how", "caveats"[...] more that simple descriptions, as those should be
- *        inferred from code and names as much as possible.
+ * Enum representing the keys used in structured log records.
  *
  * @author BareMetalCode
  */
@@ -51,6 +50,5 @@ public enum LogRecordKey {
     LogRecordKey(final String value) {
         this.value = value;
     }
-
 
 }

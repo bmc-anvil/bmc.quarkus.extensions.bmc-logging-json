@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-import com.bmc.extensions.loggingjson.runtime.models.enums.LogRecordKey;
 import com.bmc.extensions.loggingjson.runtime.models.StructuredLog;
+import com.bmc.extensions.loggingjson.runtime.models.enums.LogRecordKey;
 
 import org.jboss.logmanager.ExtLogRecord;
 
@@ -14,8 +14,10 @@ import static com.bmc.extensions.loggingjson.runtime.models.enums.LogRecordKey.*
 import static java.util.Optional.ofNullable;
 
 /**
- * FIXME: add documentation: focus on "description", "why", "how", "caveats"[...] more that simple descriptions, as those should be
- *        inferred from code and names as much as possible.
+ * Utility class for handling and populating structured log data with key-value mappings.<br>
+ * Provides methods for processing log records, extracting data, and populating log details in a map.
+ * <p>
+ * Every method does as its name suggests, no documentation on each one is necessary.
  *
  * @author BareMetalCode
  */
@@ -43,25 +45,26 @@ public class StructuredLogDataUtils {
         return map;
     }
 
-    public static void populateAdditionalFields(final StructuredLog structuredLog, final Map<String, Object> fieldsToRender) {
+    public static void populateAdditionalFieldsIfAny(final StructuredLog structuredLog, final Map<String, Object> fieldsToRender) {
         ofNullable(structuredLog.getAdditionalFieldsTop()).ifPresent(fieldsToRender::putAll);
         ofNullable(structuredLog.getAdditionalFieldsWrapped())
                 .ifPresent(wrappedAdditionalFields -> fieldsToRender.put("additionalFields", wrappedAdditionalFields));
     }
 
-    public static void populateBasicRecordFields(final ExtLogRecord record, final StructuredLog structuredLog,
+    public static void populateCoreFields(final ExtLogRecord record, final StructuredLog structuredLog,
             final Map<String, Object> fieldsToRender) {
-        fieldsToRender.putAll(extractDataFromRecord(record, structuredLog.getBasicRecordMapping()));
+        fieldsToRender.putAll(extractDataFromRecord(record, structuredLog.getCoreRecordMapping()));
     }
 
-    public static void populateRecordDetails(final ExtLogRecord record, final StructuredLog structuredLog, final Map<String, Object> fieldsToRender,
+    public static void populateDetailsIfConfigured(final ExtLogRecord record, final StructuredLog structuredLog,
+            final Map<String, Object> fieldsToRender,
             final Boolean printDetails) {
         if (printDetails) {
             fieldsToRender.put("details", extractDataFromRecord(record, structuredLog.getDetailsMapping()));
         }
     }
 
-    public static void populateRecordException(final ExtLogRecord record, final StructuredLog structuredLog,
+    public static void populateExceptionIfPresent(final ExtLogRecord record, final StructuredLog structuredLog,
             final Map<String, Object> fieldsToRender) {
         if (record.getThrown() != null) {
             final String exceptionKey = structuredLog.getRecordKeys().get(EXCEPTION);

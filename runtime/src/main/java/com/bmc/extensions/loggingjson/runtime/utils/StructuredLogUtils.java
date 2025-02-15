@@ -18,6 +18,9 @@ import static com.bmc.extensions.loggingjson.runtime.infrastructure.utils.DateTi
 import static com.bmc.extensions.loggingjson.runtime.models.enums.ExtraECSValues.*;
 import static com.bmc.extensions.loggingjson.runtime.models.enums.LogRecordKey.LOGGER_CLASS_NAME;
 import static com.bmc.extensions.loggingjson.runtime.models.enums.LogRecordKey.TIMESTAMP;
+import static java.util.Arrays.stream;
+import static java.util.function.Function.identity;
+import static java.util.stream.Collectors.toMap;
 
 /**
  * Utility class to build the different parts of a {@link StructuredLog}.
@@ -44,11 +47,11 @@ public class StructuredLogUtils {
     }
 
     public static void applyExclusionsIfAny(final JsonConfig jsonConfig, final StructuredLog structuredLog) {
-        jsonConfig.excludedKeys.ifPresent(excludedKeys -> excludedKeys.forEach(structuredLog.getBasicRecordMapping()::remove));
+        jsonConfig.excludedKeys.ifPresent(excludedKeys -> excludedKeys.forEach(structuredLog.getCoreRecordMapping()::remove));
     }
 
     public static void applyOverridesIfAny(final Map<String, String> overrideMap, final StructuredLog structuredLog) {
-        final Map<String, Function<ExtLogRecord, ?>> basicRecordMapping = structuredLog.getBasicRecordMapping();
+        final Map<String, Function<ExtLogRecord, ?>> basicRecordMapping = structuredLog.getCoreRecordMapping();
 
         overrideMap.forEach((oldKeyName, newKeyName) -> {
             if (basicRecordMapping.containsKey(oldKeyName)) {
@@ -58,13 +61,10 @@ public class StructuredLogUtils {
     }
 
     public static EnumMap<LogRecordKey, String> buildDefaultKeys() {
-        final EnumMap<LogRecordKey, String> map = new EnumMap<>(LogRecordKey.class);
-
-        for (final LogRecordKey logRecordKey : LogRecordKey.values()) {
-            map.put(logRecordKey, logRecordKey.getValue());
-        }
-
-        return map;
+        return stream(LogRecordKey.values()).collect(toMap(
+                identity(), LogRecordKey::getValue,         // key and value
+                (v1, v2) -> v1,                 // collision OP(merge F()): none required
+                () -> new EnumMap<>(LogRecordKey.class)));  // factory for results
     }
 
     public static void setStructuredLogInstantFormatting(final StructuredLog structuredLog, final JsonConfig jsonConfig) {
@@ -72,7 +72,7 @@ public class StructuredLogUtils {
         final DateTimeFormatter              logFormatter               = getDateTimeFormatterWithZone(logInstantFormatterPattern, jsonConfig);
         final Function<ExtLogRecord, String> formatedInstantFunction    = extLogRecord -> logFormatter.format(extLogRecord.getInstant());
 
-        structuredLog.getBasicRecordMapping().replace(TIMESTAMP.getValue(), formatedInstantFunction);
+        structuredLog.getCoreRecordMapping().replace(TIMESTAMP.getValue(), formatedInstantFunction);
     }
 
     public static void updateConfigIfLogFormatIsECS(final JsonConfig jsonConfig) {

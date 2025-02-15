@@ -12,8 +12,7 @@ import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 /**
- * FIXME: add documentation: focus on "description", "why", "how", "caveats"[...] more that simple descriptions, as those should be
- *        inferred from code and names as much as possible.
+ * Just a launcher.
  *
  * @author BareMetalCode
  */
@@ -39,7 +38,7 @@ public class LoggingJsonStepBuilderTest {
 
     @RepeatedTest(5000)
     public void test() {
-        logger.infof("%s ", Map.of("TEST:::TEST", testingJson));
+        logger.infof("this is a ignored", Map.of("TestStructure", testingJson));
     }
 
     public static class testingJson {

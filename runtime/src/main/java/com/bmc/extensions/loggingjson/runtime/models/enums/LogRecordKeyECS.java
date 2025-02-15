@@ -3,8 +3,13 @@ package com.bmc.extensions.loggingjson.runtime.models.enums;
 import lombok.Getter;
 
 /**
- * FIXME: add documentation: focus on "description", "why", "how", "caveats"[...] more that simple descriptions, as those should be
- *        inferred from code and names as much as possible.
+ * Enum representing fields used for structured logging in the ECS (Elastic Common Schema) log format.
+ * <p>
+ * Each enum constant maps a "standard" log field to its corresponding field as defined in the ECS specification.
+ * <p>
+ * The enum constants provide both:<br>
+ * - A {@code standardValue}: representing the generic or default representation of a log field.<br>
+ * - An {@code ecsValue}: representing the corresponding ECS-compliant field name.
  *
  * @author BareMetalCode
  */

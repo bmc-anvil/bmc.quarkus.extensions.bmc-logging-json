@@ -14,11 +14,28 @@ import static java.util.Map.entry;
 import static java.util.Map.ofEntries;
 
 /**
- * FIXME: add documentation: focus on "description", "why", "how", "caveats"[...] more that simple descriptions, as those should be
- *        inferred from code and names as much as possible.
+ * LogFunctionsMappings is responsible for providing mappings of log record keys
+ * to functions that extract specific data from an instance of {@link ExtLogRecord}.
  * <p>
- * it is not a static final class, so it is instantiated then collected away instead of living in memo with no purpose
- * FIXME: check if the above statement holds true
+ * The mappings are categorized into three primary groups:
+ * <p>
+ * 1. {@code basicRecordMapping} Contains mappings for commonly used log record properties
+ * such as the hostname, log level, logger information, message, thread details, and more.
+ * <p>
+ * 2. {@code detailsMapping} Contains mappings for additional log record details, including
+ * source class name, source file name, line number, method name, and module name.
+ * <p>
+ * 3. {@code exceptionMapping} Contains mappings specifically for extracting exception-related
+ * details from a log record.
+ * <p>
+ * It also includes helper functions to process and structure log messages effectively:
+ * <p>
+ * - {@code canBuildStructuredMessage} Determines if the log message can be represented as a structured message
+ * based on its parameters.<br>
+ * - {@code getStructuredMessage} Processes the message parameters to return a structured or formatted message.
+ * <p>
+ * This class facilitates efficient data extraction and preparation for JSON logging or other structured
+ * log formats by centralizing and organizing the mappings and functions required for log record processing.
  *
  * @author BareMetalCode
  */
@@ -70,8 +87,42 @@ public class LogFunctionsMappings {
     private final Map<String, Function<ExtLogRecord, ?>> exceptionMapping = new HashMap<>(ofEntries(
             entry(THROWN.getValue(), GET_THROWN)));
 
+    /**
+     * Evaluates the parameters from the {@link ExtLogRecord} to determine if a "Structured Message" can be built from them.
+     * <p>
+     * These rules can change, and until the library is tested, this should be considered HIGHLY unstable.
+     * <p>
+     * The key rule is to determine if we have a single parameter and if it is a string/object map.
+     * In the constructed JSON, the key will be used as fieldName and the object as field value.
+     * <p>
+     * I chose this construct to allow for many key/values in a single log statement and because a Map<String.Object> is ubiquitous and simple.<br>
+     * It can be that in the future I'll wrap the map in a structure that will be easier to detect while keeping the same flexibility a Map provides.
+     * <p>
+     * example:<br>
+     * <pre>
+     * {@code
+     * logger.infof("%s", Map.of("buyer", buyerUser,"seller", sellerUser));
+     * logger.infof("", Map.of("buyer", buyerUser,"seller", sellerUser));
+     * logger.infof("this will be ignored", Map.of("buyer", buyerUser,"seller", sellerUser));
+     * }
+     * </pre>
+     * <p>
+     * will render something like:<br>
+     * <pre>
+     * {@code
+     * "message": {
+     *      "buyer": { "name": "john" },
+     *      "seller": { "name": "tom" }
+     *      }
+     * }
+     * </pre>
+     *
+     * @param messageParameters {@link ExtLogRecord} parameters field.
+     *
+     * @return true if the parameter complies with the rules for the message to be considered a "Structured object"
+     */
     private static boolean canBuildStructuredMessage(final Object[] messageParameters) {
-        return messageParameters != null && messageParameters.length == 1 && messageParameters[0] instanceof Map<?, ?>;
+        return messageParameters != null && messageParameters.length == 1 && messageParameters[0] instanceof Map;
     }
 
     private static Object getStructuredMessage(final ExtLogRecord extLogRecord) {
@@ -84,7 +135,7 @@ public class LogFunctionsMappings {
                 Map<String, Object> map = (Map<String, Object>) messageParameters[0];
                 structuredMessage = map;
             } catch (ClassCastException e) {
-                // could give some sort of option here instead of just exploding.
+                // FIXME: could give some sort of option here instead of just exploding.
                 // leaving this during the lib stabilization phase.
                 // structuredMessage = extLogRecord.getMessage().formatted(messageParameters);
                 throw new IllegalArgumentException("Invalid map structure being injected to JSON Logger", e);

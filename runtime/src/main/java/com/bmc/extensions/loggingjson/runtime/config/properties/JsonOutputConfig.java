@@ -6,7 +6,9 @@ import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
 
 /**
- * Configuration for JSON log formatting.
+ * Configuration roots for JSON log formatting by output type.
+ *
+ * @author BareMetalCode
  */
 @ConfigRoot(name = "log",
             phase = ConfigPhase.RUN_TIME)
