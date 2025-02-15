@@ -63,13 +63,13 @@ public class DateTimeUtils {
     public static DateTimeFormatter getDateTimeFormatter(final String pattern) {
         return Optional.ofNullable(pattern)
                        .map(DateTimeFormatter::ofPattern)
-                       .orElseGet(() -> ISO_LOCAL_DATE_TIME);
+                       .orElse(ISO_LOCAL_DATE_TIME);
     }
 
     public static DateTimeFormatter getDateTimeFormatterWithZone(final String pattern, final JsonConfig jsonConfig) {
         return Optional.ofNullable(pattern)
                        .map(DateTimeFormatter::ofPattern)
-                       .orElseGet(() -> ISO_OFFSET_DATE_TIME)
+                       .orElse(ISO_OFFSET_DATE_TIME)
                        .withZone(getZoneId(jsonConfig));
     }
 
