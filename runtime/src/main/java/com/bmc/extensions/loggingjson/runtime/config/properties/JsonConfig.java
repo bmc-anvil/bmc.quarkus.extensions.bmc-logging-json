@@ -10,62 +10,57 @@ import com.bmc.extensions.loggingjson.runtime.models.enums.LogFormat;
 
 import io.quarkus.runtime.annotations.ConfigDocMapKey;
 import io.quarkus.runtime.annotations.ConfigGroup;
-import io.quarkus.runtime.annotations.ConfigItem;
+import io.smallrye.config.WithDefault;
 
 import org.jboss.logmanager.formatters.StructuredFormatter;
 
 /**
- * Configuration class for structuring JSON output.
+ * Configuration interface for structuring JSON output.
  *
  * @author BareMetalCode
  */
 @ConfigGroup
-public class JsonConfig {
+public interface JsonConfig {
 
     /**
      * Additional fields to be appended in the JSON logs and will appear at the top level of the logs.
      */
-    @ConfigItem
-    @ConfigDocMapKey("field-name")
-    public Map<String, String> additionalFieldsTop;
+    @ConfigDocMapKey("top-field-name")
+    Map<String, String> additionalFieldsTop();
 
     /**
      * Additional fields to be appended in the JSON logs and will appear wrapped under the "additionalFields" key.
      */
-    @ConfigItem
-    @ConfigDocMapKey("field-name")
-    public Map<String, String> additionalFieldsWrapped;
+    @ConfigDocMapKey("wrapped-field-name")
+    Map<String, String> additionalFieldsWrapped();
 
     /**
      * Custom Serializers that will apply to the client application and not to the log itself
      * These serializers will target the rendering inside the message field
      */
-    @ConfigItem
-    public ClientSerializerConfig clientSerializers;
+    ClientSerializerConfig clientSerializers();
 
     /**
      * Determine whether to enable the JSON console formatting extension, which disables "normal" console formatting.
      */
-    @ConfigItem(defaultValue = "true")
-    public boolean enable;
+    @WithDefault("true")
+    boolean enable();
 
     /**
      * The exception output type to specify.
      */
-    @ConfigItem(defaultValue = "detailed")
-    public StructuredFormatter.ExceptionOutputType exceptionOutputType;
+    @WithDefault("detailed")
+    StructuredFormatter.ExceptionOutputType exceptionOutputType();
 
     /**
      * Keys to be excluded from the JSON output.
      */
-    @ConfigItem
-    public Optional<Set<String>> excludedKeys;
+    Optional<Set<String>> excludedKeys();
 
     /**
      * Override keys with custom values. Omitting this value indicates that no key overrides will be applied.
      */
-    @ConfigItem
-    public Map<String, String> keyOverrides;
+    Map<String, String> keyOverrides();
 
     /**
      * The date format to use on the log record output.
@@ -79,14 +74,13 @@ public class JsonConfig {
      * @see
      * <a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/time/format/DateTimeFormatter.html">DateTimeFormatter Patterns</a>
      */
-    @ConfigItem
-    public Optional<String> logDateTimeFormat;
+    Optional<String> logDateTimeFormat();
 
     /**
      * Specify the format of the produced JSON
      */
-    @ConfigItem(defaultValue = "DEFAULT")
-    public LogFormat logFormat;
+    @WithDefault("DEFAULT")
+    LogFormat logFormat();
 
     /**
      * The zone ID to use in an accepted ZoneId format.
@@ -94,14 +88,14 @@ public class JsonConfig {
      * Default to the system's zone id.<br>
      * Mind that the system is where the JVM is running by calling ZoneId::systemDefault
      */
-    @ConfigItem
-    public Optional<String> logZoneId;
+
+    Optional<String> logZoneId();
 
     /**
      * Enable "pretty printing" of the JSON record. Note that some JSON parsers will fail to read the pretty printed output.
      */
-    @ConfigItem(defaultValue = "false")
-    public boolean prettyPrint;
+    @WithDefault("false")
+    boolean prettyPrint();
 
     /**
      * Enable printing of more details in the log.
@@ -109,8 +103,8 @@ public class JsonConfig {
      * Printing the details can be expensive as the values are retrieved from the caller. The details include the
      * source class name, source file name, source method name, and source line number.
      */
-    @ConfigItem(defaultValue = "false")
-    public Boolean printDetails;
+    @WithDefault("false")
+    Boolean printDetails();
 
     /**
      * The special end-of-record delimiter to be used.
@@ -119,7 +113,6 @@ public class JsonConfig {
      *
      * @see System#lineSeparator()
      */
-    @ConfigItem
-    public Optional<String> recordDelimiter;
+    Optional<String> recordDelimiter();
 
 }

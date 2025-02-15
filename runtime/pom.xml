@@ -78,7 +78,6 @@
                             <version>1.18.36</version>
                         </path>
                     </annotationProcessorPaths>
-                    <compilerArgument>-AlegacyConfigRoot=true</compilerArgument>
                 </configuration>
             </plugin>
         </plugins>

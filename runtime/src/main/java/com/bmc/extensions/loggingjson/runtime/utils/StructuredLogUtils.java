@@ -35,19 +35,19 @@ public class StructuredLogUtils {
 
     public static void addAdditionalFieldsIfAny(final JsonConfig jsonConfig, final StructuredLog structuredLog) {
 
-        if (!jsonConfig.additionalFieldsTop.isEmpty()) {
+        if (!jsonConfig.additionalFieldsTop().isEmpty()) {
             structuredLog.setAdditionalFieldsTop(new HashMap<>());
-            structuredLog.getAdditionalFieldsTop().putAll(jsonConfig.additionalFieldsTop);
+            structuredLog.getAdditionalFieldsTop().putAll(jsonConfig.additionalFieldsTop());
         }
 
-        if (!jsonConfig.additionalFieldsWrapped.isEmpty()) {
+        if (!jsonConfig.additionalFieldsWrapped().isEmpty()) {
             structuredLog.setAdditionalFieldsWrapped(new HashMap<>());
-            structuredLog.getAdditionalFieldsWrapped().putAll(jsonConfig.additionalFieldsWrapped);
+            structuredLog.getAdditionalFieldsWrapped().putAll(jsonConfig.additionalFieldsWrapped());
         }
     }
 
     public static void applyExclusionsIfAny(final JsonConfig jsonConfig, final StructuredLog structuredLog) {
-        jsonConfig.excludedKeys.ifPresent(excludedKeys -> excludedKeys.forEach(structuredLog.getCoreRecordMapping()::remove));
+        jsonConfig.excludedKeys().ifPresent(excludedKeys -> excludedKeys.forEach(structuredLog.getCoreRecordMapping()::remove));
     }
 
     public static void applyOverridesIfAny(final Map<String, String> overrideMap, final StructuredLog structuredLog) {
@@ -68,7 +68,7 @@ public class StructuredLogUtils {
     }
 
     public static void setStructuredLogInstantFormatting(final StructuredLog structuredLog, final JsonConfig jsonConfig) {
-        final String                         logInstantFormatterPattern = jsonConfig.logDateTimeFormat.orElse(null);
+        final String                         logInstantFormatterPattern = jsonConfig.logDateTimeFormat().orElse(null);
         final DateTimeFormatter              logFormatter               = getDateTimeFormatterWithZone(logInstantFormatterPattern, jsonConfig);
         final Function<ExtLogRecord, String> formatedInstantFunction    = extLogRecord -> logFormatter.format(extLogRecord.getInstant());
 
@@ -76,12 +76,12 @@ public class StructuredLogUtils {
     }
 
     public static void updateConfigIfLogFormatIsECS(final JsonConfig jsonConfig) {
-        if (!jsonConfig.logFormat.equals(LogFormat.ECS)) {
+        if (!jsonConfig.logFormat().equals(LogFormat.ECS)) {
             return;
         }
 
-        final Map<String, String> keyOverrides      = jsonConfig.keyOverrides;
-        final Map<String, String> excExtraFieldsTop = jsonConfig.additionalFieldsTop;
+        final Map<String, String> keyOverrides      = jsonConfig.keyOverrides();
+        final Map<String, String> excExtraFieldsTop = jsonConfig.additionalFieldsTop();
         final Config              quarkusConfig     = ConfigProvider.getConfig();
 
         final String ecsServiceName        = keyOverrides.getOrDefault(SERVICE_NAME.getValue(), SERVICE_NAME.getValue());
@@ -104,7 +104,7 @@ public class StructuredLogUtils {
         quarkusConfig.getOptionalValue(SERVICE_ENV.getEcsExtraField(), String.class)
                      .ifPresent(additionalField -> excExtraFieldsTop.putIfAbsent(ecsServiceEnvironment, additionalField));
 
-        final Set<String> excludedKeys = jsonConfig.excludedKeys.orElseGet(HashSet::new);
+        final Set<String> excludedKeys = jsonConfig.excludedKeys().orElseGet(HashSet::new);
         excludedKeys.add(LOGGER_CLASS_NAME.getValue());
 
     }

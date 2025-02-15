@@ -51,7 +51,7 @@ public class JsonFormatter extends ExtFormatter {
 
         populateCoreFields(record, structuredLog, fieldsToPrint);
         populateAdditionalFieldsIfAny(structuredLog, fieldsToPrint);
-        populateDetailsIfConfigured(record, structuredLog, fieldsToPrint, jsonConfig.printDetails);
+        populateDetailsIfConfigured(record, structuredLog, fieldsToPrint, jsonConfig.printDetails());
         populateExceptionIfPresent(record, structuredLog, fieldsToPrint);
 
         return formatRecord(fieldsToPrint, jsonFactory, jsonConfig);

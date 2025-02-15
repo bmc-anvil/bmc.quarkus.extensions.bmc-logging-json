@@ -32,7 +32,7 @@ public class SerializerUtils {
     private SerializerUtils() {}
 
     public static void addCustomSerializersIfAny(final JsonConfig jsonConfig, final ObjectMapper mapper) {
-        final Map<String, String> customSerializers = jsonConfig.clientSerializers.customSerializers;
+        final Map<String, String> customSerializers = jsonConfig.clientSerializers().customSerializers();
         if (customSerializers == null || customSerializers.isEmpty()) {
             return;
         }

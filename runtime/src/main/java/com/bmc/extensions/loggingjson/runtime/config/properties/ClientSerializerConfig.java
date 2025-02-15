@@ -7,10 +7,9 @@ import java.util.Optional;
 
 import io.quarkus.runtime.annotations.ConfigDocMapKey;
 import io.quarkus.runtime.annotations.ConfigGroup;
-import io.quarkus.runtime.annotations.ConfigItem;
 
 /**
- * Class In charge of client application serialization configuration.
+ * Interface In charge of client application serialization configuration.
  * <p>
  * This differs with the Logger configurators as these client serializers affect the output of objects in the client application itself.
  * <p>
@@ -28,14 +27,13 @@ import io.quarkus.runtime.annotations.ConfigItem;
  * @author BareMetalCode
  */
 @ConfigGroup
-public class ClientSerializerConfig {
+public interface ClientSerializerConfig {
 
     /**
      * Custom JSON serializers for your own app data types.
      */
     @ConfigDocMapKey("serializer-name")
-    @ConfigItem
-    public Map<String, String> customSerializers;
+    Map<String, String> customSerializers();
 
     /**
      * Convenience formatter for client app {@link Instant} instances using {@link DateTimeFormatter} string patterns
@@ -43,8 +41,7 @@ public class ClientSerializerConfig {
      * @see
      * <a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/time/format/DateTimeFormatter.html">DateTimeFormatter Patterns</a>
      */
-    @ConfigItem
-    public Optional<String> instantFormat;
+    Optional<String> instantFormat();
 
     /**
      * Convenience formatter for client app {@link LocalDate} instances using {@link DateTimeFormatter} string patterns
@@ -52,8 +49,7 @@ public class ClientSerializerConfig {
      * @see
      * <a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/time/format/DateTimeFormatter.html">DateTimeFormatter Patterns</a>
      */
-    @ConfigItem
-    public Optional<String> localDateFormat;
+    Optional<String> localDateFormat();
 
     /**
      * Convenience formatter for client app {@link LocalDateTime} instances using {@link DateTimeFormatter} string patterns
@@ -61,8 +57,7 @@ public class ClientSerializerConfig {
      * @see
      * <a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/time/format/DateTimeFormatter.html">DateTimeFormatter Patterns</a>
      */
-    @ConfigItem
-    public Optional<String> localDateTimeFormat;
+    Optional<String> localDateTimeFormat();
 
     /**
      * Convenience formatter for client app {@link LocalTime} instances using {@link DateTimeFormatter} string patterns
@@ -70,8 +65,7 @@ public class ClientSerializerConfig {
      * @see
      * <a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/time/format/DateTimeFormatter.html">DateTimeFormatter Patterns</a>
      */
-    @ConfigItem
-    public Optional<String> localTimeFormat;
+    Optional<String> localTimeFormat();
 
     /**
      * Convenience formatter for client app {@link ZonedDateTime} instances using {@link DateTimeFormatter} string patterns
@@ -79,7 +73,6 @@ public class ClientSerializerConfig {
      * @see
      * <a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/time/format/DateTimeFormatter.html">DateTimeFormatter Patterns</a>
      */
-    @ConfigItem
-    public Optional<String> zonedDateTimeFormat;
+    Optional<String> zonedDateTimeFormat();
 
 }

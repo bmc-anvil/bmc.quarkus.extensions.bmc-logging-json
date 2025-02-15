@@ -37,25 +37,25 @@ public class DateTimeUtils {
 
     public static JavaTimeModule configureClientDateTime(final JsonConfig jsonConfig) {
         final JavaTimeModule         javaTimeModule    = new JavaTimeModule();
-        final ClientSerializerConfig clientSerializers = jsonConfig.clientSerializers;
+        final ClientSerializerConfig clientSerializers = jsonConfig.clientSerializers();
 
-        clientSerializers.localDateTimeFormat
+        clientSerializers.localDateTimeFormat()
                 .ifPresent(pattern -> javaTimeModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(getDateTimeFormatter(pattern))));
 
-        clientSerializers.localDateFormat
+        clientSerializers.localDateFormat()
                 .ifPresent(pattern -> javaTimeModule.addSerializer(LocalDate.class, new LocalDateSerializer(getDateTimeFormatter(pattern))));
 
-        clientSerializers.localTimeFormat
+        clientSerializers.localTimeFormat()
                 .ifPresent(pattern -> javaTimeModule.addSerializer(LocalTime.class, new LocalTimeSerializer(getDateTimeFormatter(pattern))));
 
-        clientSerializers.localDateTimeFormat
+        clientSerializers.localDateTimeFormat()
                 .ifPresent(pattern -> javaTimeModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(getDateTimeFormatter(pattern))));
 
-        clientSerializers.zonedDateTimeFormat
+        clientSerializers.zonedDateTimeFormat()
                 .ifPresent(pattern -> javaTimeModule
                         .addSerializer(ZonedDateTime.class, new ZonedDateTimeSerializer(getDateTimeFormatterWithZone(pattern, jsonConfig))));
 
-        clientSerializers.instantFormat.ifPresent(pattern -> javaTimeModule.addSerializer(Instant.class, getInstantSerializer(pattern, jsonConfig)));
+        clientSerializers.instantFormat().ifPresent(pattern -> javaTimeModule.addSerializer(Instant.class, getInstantSerializer(pattern, jsonConfig)));
 
         return javaTimeModule;
     }
@@ -74,7 +74,7 @@ public class DateTimeUtils {
     }
 
     public static ZoneId getZoneId(final JsonConfig jsonConfig) {
-        return jsonConfig.logZoneId
+        return jsonConfig.logZoneId()
                 .map(ZoneId::of)
                 .orElseGet(ZoneId::systemDefault);
     }

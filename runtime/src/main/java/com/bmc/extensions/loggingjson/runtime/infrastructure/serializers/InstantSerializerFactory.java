@@ -19,7 +19,7 @@ public class InstantSerializerFactory {
         final DateTimeFormatter formatter             = DateTimeUtils.getDateTimeFormatterWithZone(pattern, jsonConfig);
         final InstantSerializer initializedSerializer = new InstantSerializer();
 
-        jsonConfig.logZoneId.ifPresent(zoneId -> initializedSerializer.setZoneId(ZoneId.of(zoneId)));
+        jsonConfig.logZoneId().ifPresent(zoneId -> initializedSerializer.setZoneId(ZoneId.of(zoneId)));
         initializedSerializer.setDateTimeFormatter(formatter);
 
         return initializedSerializer;

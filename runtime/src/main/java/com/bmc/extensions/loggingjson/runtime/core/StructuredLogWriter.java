@@ -24,8 +24,8 @@ public class StructuredLogWriter {
         try (final JsonGenerator generator = getJsonGenerator(writer, jsonFactory, jsonConfig)) {
             generator.writeObject(fieldsToRender);
 
-            if (jsonConfig.recordDelimiter.isPresent() && !thisIsTheLastRecord(fieldsToRender)) {
-                generator.writeRaw(jsonConfig.recordDelimiter.get());
+            if (jsonConfig.recordDelimiter().isPresent() && !thisIsTheLastRecord(fieldsToRender)) {
+                generator.writeRaw(jsonConfig.recordDelimiter().get());
             }
 
             generator.writeRaw(NEW_LINE);
@@ -41,7 +41,7 @@ public class StructuredLogWriter {
     private static JsonGenerator getJsonGenerator(final ByteArrayOutputStream writer, final JsonFactory jsonFactory, final JsonConfig jsonConfig)
             throws IOException {
         final JsonGenerator generator = jsonFactory.createGenerator(writer);
-        return jsonConfig.prettyPrint ? generator.useDefaultPrettyPrinter() : generator;
+        return jsonConfig.prettyPrint() ? generator.useDefaultPrettyPrinter() : generator;
     }
 
     // FIXME: this seems a very innocent implementation.

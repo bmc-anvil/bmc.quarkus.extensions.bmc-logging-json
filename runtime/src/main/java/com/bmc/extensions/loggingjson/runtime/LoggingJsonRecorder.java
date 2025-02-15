@@ -28,8 +28,8 @@ public class LoggingJsonRecorder {
 
     public RuntimeValue<Optional<Formatter>> getJsonFormatterForLogOutputType(final JsonOutputConfig jsonOutputConfig, final LogOutput logOutput) {
         return switch (logOutput) {
-            case FILE -> createJsonFormater(jsonOutputConfig.fileJson);
-            case CONSOLE -> createJsonFormater(jsonOutputConfig.consoleJson);
+            case FILE -> createJsonFormater(jsonOutputConfig.fileJson());
+            case CONSOLE -> createJsonFormater(jsonOutputConfig.consoleJson());
         };
     }
 
@@ -44,7 +44,7 @@ public class LoggingJsonRecorder {
      * {@link JsonFormatter} instance.
      */
     private RuntimeValue<Optional<Formatter>> createJsonFormater(final JsonConfig jsonConfig) {
-        if (!jsonConfig.enable) {
+        if (!jsonConfig.enable()) {
             return new RuntimeValue<>(empty());
         }
 
