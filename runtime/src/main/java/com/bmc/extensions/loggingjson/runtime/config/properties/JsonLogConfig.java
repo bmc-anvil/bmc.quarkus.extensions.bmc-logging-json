@@ -14,7 +14,7 @@ import static io.quarkus.runtime.annotations.ConfigPhase.RUN_TIME;
  */
 @ConfigMapping(prefix = "quarkus.log")
 @ConfigRoot(phase = RUN_TIME)
-public interface JsonOutputConfig {
+public interface JsonLogConfig {
 
     /**
      * Console logging.

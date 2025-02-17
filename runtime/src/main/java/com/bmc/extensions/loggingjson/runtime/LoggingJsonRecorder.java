@@ -4,7 +4,7 @@ import java.util.Optional;
 import java.util.logging.Formatter;
 
 import com.bmc.extensions.loggingjson.runtime.config.properties.JsonConfig;
-import com.bmc.extensions.loggingjson.runtime.config.properties.JsonOutputConfig;
+import com.bmc.extensions.loggingjson.runtime.config.properties.JsonLogConfig;
 import com.bmc.extensions.loggingjson.runtime.core.JsonFormatter;
 import com.bmc.extensions.loggingjson.runtime.models.StructuredLog;
 import com.bmc.extensions.loggingjson.runtime.models.enums.LogOutput;
@@ -26,10 +26,10 @@ import static java.util.Optional.of;
 @Recorder
 public class LoggingJsonRecorder {
 
-    public RuntimeValue<Optional<Formatter>> getJsonFormatterForLogOutputType(final JsonOutputConfig jsonOutputConfig, final LogOutput logOutput) {
+    public RuntimeValue<Optional<Formatter>> getJsonFormatterForLogOutputType(final JsonLogConfig jsonLogConfig, final LogOutput logOutput) {
         return switch (logOutput) {
-            case FILE -> createJsonFormater(jsonOutputConfig.fileJson());
-            case CONSOLE -> createJsonFormater(jsonOutputConfig.consoleJson());
+            case FILE -> createJsonFormater(jsonLogConfig.fileJson());
+            case CONSOLE -> createJsonFormater(jsonLogConfig.consoleJson());
         };
     }
 

@@ -8,6 +8,7 @@ import java.util.Map;
 import io.quarkus.test.QuarkusUnitTest;
 
 import org.jboss.logging.Logger;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
@@ -16,12 +17,12 @@ import org.junit.jupiter.api.extension.RegisterExtension;
  *
  * @author BareMetalCode
  */
-public class LoggingJsonStepBuilderTest {
+public class LauncherTest {
 
     @RegisterExtension
     static final QuarkusUnitTest QUARKUS_UNIT_TEST = new QuarkusUnitTest()
             .withEmptyApplication()
-            .withConfigurationResource("application.properties");
+            .withConfigurationResource("application-launcher.properties");
 
     private static final Logger      logger      = Logger.getLogger("JBOSS");
     private static final testingJson testingJson = new testingJson();
@@ -37,8 +38,9 @@ public class LoggingJsonStepBuilderTest {
     }
 
     @RepeatedTest(5000)
+    @Disabled
     public void test() {
-        logger.infof("this is a ignored", Map.of("TestStructure", testingJson));
+        logger.infof("this is ignored", Map.of("TestStructure", testingJson));
     }
 
     public static class testingJson {

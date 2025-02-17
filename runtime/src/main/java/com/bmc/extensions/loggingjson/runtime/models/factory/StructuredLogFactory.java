@@ -3,7 +3,7 @@ package com.bmc.extensions.loggingjson.runtime.models.factory;
 import java.util.function.Function;
 
 import com.bmc.extensions.loggingjson.runtime.config.properties.JsonConfig;
-import com.bmc.extensions.loggingjson.runtime.config.properties.JsonOutputConfig;
+import com.bmc.extensions.loggingjson.runtime.config.properties.JsonLogConfig;
 import com.bmc.extensions.loggingjson.runtime.core.JsonFormatter;
 import com.bmc.extensions.loggingjson.runtime.models.LogFunctionsMappings;
 import com.bmc.extensions.loggingjson.runtime.models.StructuredLog;
@@ -14,7 +14,7 @@ import static com.bmc.extensions.loggingjson.runtime.utils.StructuredLogUtils.*;
  * Factory to create a {@link StructuredLog} that will act as a template for printing JSON Logs.
  * <p>
  * The goal is to return a minimum footprint {@link JsonFormatter} using Jackson as serializer.<br>
- * This is done by precomputing the fields to be printed according to {@link JsonOutputConfig} into a map of {@link String}/{@link Function} to reduce
+ * This is done by precomputing the fields to be printed according to {@link JsonLogConfig} into a map of {@link String}/{@link Function} to reduce
  * as much as possible testing the different decision paths for overrides, formatting, static keys, configs, etc.
  *
  * @author BareMetalCode
