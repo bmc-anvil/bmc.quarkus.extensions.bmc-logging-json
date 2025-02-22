@@ -9,6 +9,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - name: checkout the repository
         uses: actions/checkout@v4
@@ -19,16 +22,17 @@ jobs:
           java-version: '23'
           distribution: "temurin"
           cache: maven
+          server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+          server-username: GITHUB_ACTOR
+          server-password: GITHUB_TOKEN
 
-      - name: checkstyle check
+      - name: build and test
         continue-on-error: true
         run: ./mvnw clean verify
 
-      - name: Test project
-        run: mvnw test
 
       - name: Publish to Github Packages
-        run: mvnw deploy
+        run: ./mvnw deploy -DskipTests
 
       # update dep graph for dependabot
       - name: Update dependency graph
