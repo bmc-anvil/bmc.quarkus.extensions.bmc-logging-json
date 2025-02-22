@@ -28,7 +28,6 @@ jobs:
         continue-on-error: true
         run: ./mvnw clean verify
 
-
       - name: Publish to Github Packages
         run: ./mvnw deploy -DskipTests
         env:
