@@ -17,10 +17,6 @@ jobs:
       - name: checkout the repository
         uses: actions/checkout@v4
 
-      - name: Print Repository Name
-        run:
-          echo "Current Repository: ${{ env.GITHUB_REPOSITORY }}"
-
       - name: Set up JDK and maven cache
         uses: actions/setup-java@v4
         with:
