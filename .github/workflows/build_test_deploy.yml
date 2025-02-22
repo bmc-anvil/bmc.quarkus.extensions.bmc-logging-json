@@ -29,6 +29,6 @@ jobs:
         run: ./mvnw clean verify
 
       - name: Publish to Github Packages
-        run: ./mvnw deploy -DskipTests
+        run: ./mvnw deploy -DskipTests -Dmaven.source.skip=false -Dmaven.javadoc.skip=false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
