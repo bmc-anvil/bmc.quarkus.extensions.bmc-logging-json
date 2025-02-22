@@ -26,6 +26,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+        <!-- GitHub Packages Repository -->
+        <github.repository>bmc-anvil/bmc-logging-json</github.repository>
+
         <!-- Java / Maven Configuration  -->
         <maven.compiler.release>23</maven.compiler.release>
         <maven.javadoc.failOnError>false</maven.javadoc.failOnError>
@@ -52,7 +55,7 @@
         <repository>
             <id>github</id>
             <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/bmc-anvil/bmc-logging-json</url>
+            <url>https://maven.pkg.github.com/${github.repository}</url>
         </repository>
     </distributionManagement>
 
