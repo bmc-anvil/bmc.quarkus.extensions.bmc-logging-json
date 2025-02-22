@@ -1,7 +1,7 @@
 ---
+name: "BMC logging json"
 artifact: ${project.groupId}:${project.artifactId}:${project.version}
-name: "logging json structured"
-description: "Structured JSON formatting support for logging"
+description: "Logging structured JSON formatting support"
 metadata:
     keywords:
         - "core"
@@ -14,6 +14,7 @@ metadata:
         - "core"
         - "logging"
     status: "experimental"
+    guide: ""
     config:
         - "quarkus.log.console.json."
         - "quarkus.log.file.json."
