@@ -7,8 +7,7 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
 /**
- * FIXME: add documentation: focus on "description", "why", "how", "caveats"[...] more that simple descriptions, as those should be
- *        inferred from code and names as much as possible.
+ * Dummy serializer to test client custom serializer loading via properties.
  *
  * @author BareMetalCode
  */
