@@ -20,6 +20,7 @@ import io.quarkus.test.QuarkusUnitTest;
 
 import org.jboss.logmanager.ExtLogRecord;
 import org.jboss.logmanager.Level;
+import org.jboss.logmanager.formatters.PatternFormatter;
 import org.jboss.logmanager.handlers.ConsoleHandler;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -27,8 +28,10 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static com.bmc.extensions.loggingjson.testutils.TestUtils.extractJsonConfig;
 import static io.quarkus.bootstrap.logging.InitialConfigurator.DELAYED_HANDLER;
+import static java.lang.System.getenv;
 import static java.util.Map.entry;
 import static java.util.Map.ofEntries;
+import static java.util.Optional.ofNullable;
 import static org.jboss.logmanager.Level.INFO;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -45,7 +48,8 @@ public class FormatterOutputTest {
             .withApplicationRoot(javaArchive -> javaArchive.addClass(TestUtils.class))
             .withAdditionalDependency(javaArchive -> javaArchive.addClass(DummyPOJO.class))
             .withAdditionalDependency(javaArchive -> javaArchive.addClass(DummyAddressPOJO.class))
-            .withAdditionalDependency(javaArchive -> javaArchive.addClass(DummyTestSerializer.class));
+            .withAdditionalDependency(javaArchive -> javaArchive.addClass(DummyTestSerializer.class))
+            .withAdditionalDependency(javaArchive -> javaArchive.addClass(PatternFormatter.class));
     static final DummyAddressPOJO    dummyAddressPOJO        = new DummyAddressPOJO();
     static final DummyPOJO           dummyPOJO               = new DummyPOJO();
     static       ConsoleHandler      consoleHandler;
@@ -71,7 +75,7 @@ public class FormatterOutputTest {
                       entry("threadName", ""),
                       entry("threadId", "Dummy Serializer Long Value:"),
                       entry("sequence", "Dummy Serializer Long Value:"),
-                      entry("hostname", System.getenv().get("HOSTNAME")),
+                      entry("hostname", ofNullable(getenv("HOSTNAME")).orElse("unknown-host")),
                       entry("processId", "Dummy Serializer Long Value:"),
                       entry("processName", ""),
                       entry("message", ""),
