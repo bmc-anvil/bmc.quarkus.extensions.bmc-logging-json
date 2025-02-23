@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.bmc.extensions</groupId>
         <artifactId>bmc-logging-json-parent</artifactId>
-        <version>0.2-experimental</version>
+        <version>0.2.1-experimental</version>
     </parent>
 
     <artifactId>bmc-logging-json</artifactId>
