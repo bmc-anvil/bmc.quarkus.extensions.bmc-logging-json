@@ -1,6 +1,8 @@
 package com.bmc.extensions.loggingjson.deployment.output;
 
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -28,10 +30,8 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static com.bmc.extensions.loggingjson.testutils.TestUtils.extractJsonConfig;
 import static io.quarkus.bootstrap.logging.InitialConfigurator.DELAYED_HANDLER;
-import static java.lang.System.getenv;
 import static java.util.Map.entry;
 import static java.util.Map.ofEntries;
-import static java.util.Optional.ofNullable;
 import static org.jboss.logmanager.Level.INFO;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -75,7 +75,7 @@ public class FormatterOutputTest {
                       entry("threadName", ""),
                       entry("threadId", "Dummy Serializer Long Value:"),
                       entry("sequence", "Dummy Serializer Long Value:"),
-                      entry("hostname", ofNullable(getenv("HOSTNAME")).orElseGet(() -> getenv("RUNNER_NAME"))),
+                      entry("hostname", getHostName()),
                       entry("processId", "Dummy Serializer Long Value:"),
                       entry("processName", ""),
                       entry("message", ""),
@@ -200,6 +200,14 @@ public class FormatterOutputTest {
         final Instant           instant   = Instant.from(timestamp);
 
         assertNotNull(instant);
+    }
+
+    private String getHostName() {
+        try {
+            return InetAddress.getLocalHost().getHostName();
+        } catch (UnknownHostException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
