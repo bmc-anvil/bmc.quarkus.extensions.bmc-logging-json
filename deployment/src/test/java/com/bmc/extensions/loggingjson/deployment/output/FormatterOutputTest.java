@@ -75,7 +75,7 @@ public class FormatterOutputTest {
                       entry("threadName", ""),
                       entry("threadId", "Dummy Serializer Long Value:"),
                       entry("sequence", "Dummy Serializer Long Value:"),
-                      entry("hostname", ofNullable(getenv("HOSTNAME")).orElse("unknown-host")),
+                      entry("hostname", ofNullable(getenv("HOSTNAME")).orElseGet(() -> getenv("RUNNER_NAME"))),
                       entry("processId", "Dummy Serializer Long Value:"),
                       entry("processName", ""),
                       entry("message", ""),

@@ -1,10 +1,6 @@
-name: build-test-deploy
+name: deploy-package
 on:
   workflow_dispatch:
-  push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
 
 jobs:
   build:
@@ -34,3 +30,8 @@ jobs:
       - name: build and test
         continue-on-error: true
         run: ./mvnw clean verify
+
+      - name: Publish to Github Packages
+        run: ./mvnw deploy -DskipTests -Dmaven.source.skip=false -Dmaven.javadoc.skip=false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
