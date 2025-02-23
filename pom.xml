@@ -12,7 +12,7 @@
     <groupId>com.bmc.extensions</groupId>
     <artifactId>bmc-logging-json-parent</artifactId>
     <name>BareMetalCode logging json parent</name>
-    <version>0.2.2-experimental</version>
+    <version>0.3.0-experimental</version>
     <packaging>pom</packaging>
 
     <modules>
