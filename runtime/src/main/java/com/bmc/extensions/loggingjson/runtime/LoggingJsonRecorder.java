@@ -22,6 +22,8 @@ import static java.util.Optional.of;
  * Quarkus {@link Recorder} handling the configuration and initialization of JSON formatters.
  * <p>
  * This class is the entry point to generate everything required to create a structured JSON formatter for logging purposes.
+ *
+ * @author BareMetalCode
  */
 @Recorder
 public class LoggingJsonRecorder {
