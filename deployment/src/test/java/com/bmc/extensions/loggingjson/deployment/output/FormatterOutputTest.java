@@ -55,8 +55,7 @@ public class FormatterOutputTest {
     static       ConsoleHandler      consoleHandler;
     static       JsonConfig          jsonConfig;
     final        Map<String, String> additionalFieldsWrapped = Map.of("baz", "qux", "qux", "quux");
-    final        List<String>        detailsFields           = List.of(
-            "sourceFileName", "sourceMethodName", "sourceLineNumber", "sourceClassName", "sourceSimpleClassName");
+    final        List<String>        detailsFields           = List.of( "sourceFileName", "sourceMethodName", "sourceLineNumber", "sourceClassName", "sourceSimpleClassName");
     final        Level               level                   = INFO;
     final        String              loggerClassName         = this.getClass().getName();
     final        String              loggerName              = "loggerName";
@@ -64,24 +63,23 @@ public class FormatterOutputTest {
     final        Map<String, String> mdc                     = Map.of("mdcKey_01", "mdcValue_01", "mdcKey_02", "mdcValue_02");
     final        String              message                 = "";
     final        String              ndc                     = "Dummy NDC String";
-    final        Map<String, Object> expectedKeys            = new HashMap<>(
-            ofEntries(entry("level", level),
-                      entry("additionalFields", additionalFieldsWrapped),
-                      entry("loggerClassName", loggerClassName),
-                      entry("foo", "bar"),
-                      entry("bar", "baz"),
-                      entry("ndc", ndc),
-                      entry("mdc", mdc),
-                      entry("threadName", ""),
-                      entry("threadId", "Dummy Serializer Long Value:"),
-                      entry("sequence", "Dummy Serializer Long Value:"),
-                      entry("hostname", getHostName()),
-                      entry("processId", "Dummy Serializer Long Value:"),
-                      entry("processName", ""),
-                      entry("message", ""),
-                      entry("details", ""),
-                      entry("loggerName", loggerName),
-                      entry("timestamp", "")));
+    final        Map<String, Object> expectedKeys            = new HashMap<>(ofEntries(entry("level", level),
+                                                                                       entry("additionalFields", additionalFieldsWrapped),
+                                                                                       entry("loggerClassName", loggerClassName),
+                                                                                       entry("foo", "bar"),
+                                                                                       entry("bar", "baz"),
+                                                                                       entry("ndc", ndc),
+                                                                                       entry("mdc", mdc),
+                                                                                       entry("threadName", ""),
+                                                                                       entry("threadId", "Dummy Serializer Long Value:"),
+                                                                                       entry("sequence", "Dummy Serializer Long Value:"),
+                                                                                       entry("hostname", getHostName()),
+                                                                                       entry("processId", "Dummy Serializer Long Value:"),
+                                                                                       entry("processName", ""),
+                                                                                       entry("message", ""),
+                                                                                       entry("details", ""),
+                                                                                       entry("loggerName", loggerName),
+                                                                                       entry("timestamp", "")));
 
     @BeforeAll
     static void setup() {

@@ -11,7 +11,7 @@
 
     <artifactId>bmc-logging-json</artifactId>
     <name>BareMetalCode logging json</name>
-
+    <description>Quarkus extension for configurable structured JSON Logging</description>
 
     <dependencies>
         <dependency>

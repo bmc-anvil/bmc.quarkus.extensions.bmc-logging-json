@@ -45,7 +45,6 @@
             <artifactId>quarkus-junit5</artifactId>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
     <build>
@@ -55,5 +54,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
