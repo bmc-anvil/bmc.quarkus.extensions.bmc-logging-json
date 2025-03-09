@@ -1,5 +1,6 @@
 package com.bmc.extensions.loggingjson.deployment;
 
+import java.math.BigInteger;
 import java.time.*;
 import java.util.Arrays;
 import java.util.List;
@@ -10,6 +11,7 @@ import io.quarkus.test.QuarkusUnitTest;
 import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 /**
@@ -60,6 +62,18 @@ public class LauncherTest {
                    '}';
         }
 
+    }
+
+    @Test
+    @Disabled
+    public void exceptionFormattingTest() {
+        try {
+            BigInteger one = new BigInteger("1");
+            BigInteger two = new BigInteger("0");
+            BigInteger three = one.divide(two);
+        } catch (Exception e) {
+            logger.error("boom exception thrown", e);
+        }
     }
 
     public static class testingJsonInnerTemporal {

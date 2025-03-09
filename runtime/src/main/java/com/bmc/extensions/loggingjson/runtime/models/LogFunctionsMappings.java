@@ -85,7 +85,7 @@ public class LogFunctionsMappings {
             entry(SOURCE_MODULE_NAME.getValue(), GET_SOURCE_MODULE_NAME)));
 
     private final Map<String, Function<ExtLogRecord, ?>> exceptionMapping = new HashMap<>(ofEntries(
-            entry(THROWN.getValue(), GET_THROWN)));
+            entry(EXCEPTION.getValue(), GET_THROWN)));
 
     /**
      * Evaluates the parameters from the {@link ExtLogRecord} to determine if a "Structured Message" can be built from them.

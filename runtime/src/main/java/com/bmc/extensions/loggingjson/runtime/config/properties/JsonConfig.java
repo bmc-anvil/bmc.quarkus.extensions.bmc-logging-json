@@ -65,7 +65,7 @@ public interface JsonConfig {
     /**
      * The date format to use on the log record output.
      * <p>
-     * Defaults to {@link DateTimeFormatter#ISO_OFFSET_DATE_TIME} format: YYYY-MM-dd'T'HH:mm:ss<br>
+     * Defaults to {@link DateTimeFormatter#ISO_OFFSET_DATE_TIME} format: {@code YYYY-MM-dd'T'HH:mm:ss}<br>
      * example: '2011-12-03T10:15:30+01:00'.
      * <p>
      * You can customize the date-time format of your own objects by adding a serializer for a {@link Temporal} type data
@@ -104,7 +104,7 @@ public interface JsonConfig {
      * source class name, source file name, source method name, and source line number.
      */
     @WithDefault("false")
-    Boolean printDetails();
+    boolean printDetails();
 
     /**
      * The special end-of-record delimiter to be used.
@@ -114,5 +114,19 @@ public interface JsonConfig {
      * @see System#lineSeparator()
      */
     Optional<String> recordDelimiter();
+
+    /**
+     * Prints the classic Java-Style {@link StackTraceElement} array.
+     */
+    @WithDefault("false")
+    boolean printClassicStackTrace();
+
+    /**
+     * Depth of the Suppressed StackTrace to print if any is present.
+     * <p>
+     * Defaults to 0
+     */
+    @WithDefault("0")
+    int stackTraceSuppressedDepth();
 
 }

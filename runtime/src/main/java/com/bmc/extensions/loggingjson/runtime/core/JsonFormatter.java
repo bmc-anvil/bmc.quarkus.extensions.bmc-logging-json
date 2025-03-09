@@ -35,11 +35,15 @@ public class JsonFormatter extends ExtFormatter {
     }
 
     /**
-     * Formats the provided log record into a JSON representation by populating various fields
-     * and finally printing the {@link StructuredLog} template.
+     * Formats the provided log record into a JSON representation by populating various fields and finally printing the
+     * {@link StructuredLog} template.
      * <p>
-     * Populating the different fields is conditional to their existence or particular conditions.<br>
+     * Populating the different fields is conditional to their existence or particular conditions, except for the core
+     * fields which are always present.<br>
      * I.e., Exceptions are only populated if they exist.
+     * <p>
+     * Style note:<br>
+     * I am avoiding {@code if} conditional tests in this method and leaving the flow control to the called methods.<br>
      *
      * @param record the {@link ExtLogRecord} to format.
      *
@@ -50,9 +54,9 @@ public class JsonFormatter extends ExtFormatter {
         final Map<String, Object> fieldsToPrint = new HashMap<>();
 
         populateCoreFields(record, structuredLog, fieldsToPrint);
-        populateAdditionalFieldsIfAny(structuredLog, fieldsToPrint);
-        populateDetailsIfConfigured(record, structuredLog, fieldsToPrint, jsonConfig.printDetails());
-        populateExceptionIfPresent(record, structuredLog, fieldsToPrint);
+        populateAdditionalFieldsIfPresent(structuredLog, fieldsToPrint);
+        populateDetailsIfEnabled(record, structuredLog, fieldsToPrint, jsonConfig.printDetails());
+        populateExceptionIfPresent(record, structuredLog, fieldsToPrint, jsonConfig);
 
         return formatRecord(fieldsToPrint, jsonFactory, jsonConfig);
     }
