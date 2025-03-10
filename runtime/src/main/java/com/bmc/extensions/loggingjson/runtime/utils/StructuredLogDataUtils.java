@@ -9,6 +9,7 @@ import com.bmc.extensions.loggingjson.runtime.models.StructuredLog;
 
 import org.jboss.logmanager.ExtLogRecord;
 
+import static com.bmc.extensions.loggingjson.runtime.utils.StructuredExceptionUtils.printClassicStackTrace;
 import static com.bmc.extensions.loggingjson.runtime.utils.StructuredExceptionUtils.printStructuredException;
 import static java.util.Optional.ofNullable;
 
@@ -57,7 +58,7 @@ public class StructuredLogDataUtils {
         printStructuredException(record.getThrown(), structuredLog.getRecordKeys(), fieldsToRender, jsonConfig);
 
         if (jsonConfig.printClassicStackTrace()) {
-            StructuredExceptionUtils.printClassicStackTrace(record.getThrown(), fieldsToRender, jsonConfig);
+            printClassicStackTrace(record.getThrown(), fieldsToRender, jsonConfig);
         }
     }
 

@@ -12,6 +12,7 @@ import java.util.*;
 import com.bmc.extensions.loggingjson.deployment.serializers.DummyTestSerializer;
 import com.bmc.extensions.loggingjson.runtime.config.properties.JsonConfig;
 import com.bmc.extensions.loggingjson.runtime.core.JsonFormatter;
+import com.bmc.extensions.loggingjson.runtime.models.StructuredLogArgument;
 import com.bmc.extensions.loggingjson.testutils.DummyAddressPOJO;
 import com.bmc.extensions.loggingjson.testutils.DummyPOJO;
 import com.bmc.extensions.loggingjson.testutils.TestUtils;
@@ -28,6 +29,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
+import static com.bmc.extensions.loggingjson.runtime.models.KV.of;
+import static com.bmc.extensions.loggingjson.runtime.models.StructuredLogArgument.logEntry;
 import static com.bmc.extensions.loggingjson.testutils.TestUtils.extractJsonConfig;
 import static io.quarkus.bootstrap.logging.InitialConfigurator.DELAYED_HANDLER;
 import static java.util.Map.entry;
@@ -55,7 +58,8 @@ public class FormatterOutputTest {
     static       ConsoleHandler      consoleHandler;
     static       JsonConfig          jsonConfig;
     final        Map<String, String> additionalFieldsWrapped = Map.of("baz", "qux", "qux", "quux");
-    final        List<String>        detailsFields           = List.of( "sourceFileName", "sourceMethodName", "sourceLineNumber", "sourceClassName", "sourceSimpleClassName");
+    final        List<String>        detailsFields           =
+            List.of("sourceFileName", "sourceMethodName", "sourceLineNumber", "sourceClassName", "sourceSimpleClassName");
     final        Level               level                   = INFO;
     final        String              loggerClassName         = this.getClass().getName();
     final        String              loggerName              = "loggerName";
@@ -102,13 +106,16 @@ public class FormatterOutputTest {
 
     }
 
+    /**
+     * FIxME: add message tag testing
+     */
     @Test
     public void formatterOutputTest() throws IOException {
 
         final ExtLogRecord extLogRecord = new ExtLogRecord(level, message, loggerClassName);
 
-        final Map<String, Object> structureToOutput = Map.of("dummyPojo", dummyPOJO, "dummyAddressPojo", dummyAddressPOJO);
-        final Object[]            parameters        = new Object[]{structureToOutput};
+        final StructuredLogArgument structureToOutput = logEntry(of("dummyPojo", dummyPOJO), of("dummyAddressPojo", dummyAddressPOJO));
+        final Object[]              parameters        = new Object[]{structureToOutput};
 
         extLogRecord.setParameters(parameters);
         extLogRecord.setLoggerName(loggerName);

@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import com.bmc.extensions.loggingjson.runtime.models.StructuredLogArgument;
+
 import io.quarkus.test.QuarkusUnitTest;
 
 import org.jboss.logging.Logger;
@@ -13,6 +15,9 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
+
+import static com.bmc.extensions.loggingjson.runtime.models.KV.of;
+import static com.bmc.extensions.loggingjson.runtime.models.StructuredLogArgument.logEntry;
 
 /**
  * Just a launcher.
@@ -39,10 +44,30 @@ public class LauncherTest {
         testingJson.inner = inner;
     }
 
+    @Test
+    @Disabled
+    public void exceptionFormattingTest() {
+        try {
+            BigInteger one   = new BigInteger("1");
+            BigInteger two   = new BigInteger("0");
+            BigInteger three = one.divide(two);
+        } catch (Exception e) {
+            logger.errorf("boom exception thrown", Map.of("testStructure", testingJson), e);
+        }
+    }
+
     @RepeatedTest(5000)
     @Disabled
-    public void test() {
-        logger.infof("this is ignored", Map.of("TestStructure", testingJson));
+    public void testStructureNew() {
+
+        StructuredLogArgument structuredLogArgument =
+                logEntry(of("TestStructure", testingJson),
+                         of("secondEntry", "second"),
+                         of("third Entry time", Instant.now()),
+                         of("Forth Entry Map in map", Map.of("key", "value", "key2", "value2", "key3", "value3")));
+
+        //        logger.infof("respect sort on message", structuredLogArgument);
+        logger.infof("", structuredLogArgument);
     }
 
     public static class testingJson {
@@ -62,18 +87,6 @@ public class LauncherTest {
                    '}';
         }
 
-    }
-
-    @Test
-    @Disabled
-    public void exceptionFormattingTest() {
-        try {
-            BigInteger one = new BigInteger("1");
-            BigInteger two = new BigInteger("0");
-            BigInteger three = one.divide(two);
-        } catch (Exception e) {
-            logger.error("boom exception thrown", e);
-        }
     }
 
     public static class testingJsonInnerTemporal {

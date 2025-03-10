@@ -7,11 +7,11 @@ import java.util.function.Function;
 
 import org.jboss.logmanager.ExtLogRecord;
 
-import lombok.Getter;
-
 import static com.bmc.extensions.loggingjson.runtime.models.enums.LogRecordKey.*;
 import static java.util.Map.entry;
 import static java.util.Map.ofEntries;
+
+import lombok.Getter;
 
 /**
  * LogFunctionsMappings is responsible for providing mappings of log record keys
@@ -92,21 +92,31 @@ public class LogFunctionsMappings {
      * <p>
      * These rules can change, and until the library is tested, this should be considered HIGHLY unstable.
      * <p>
-     * The key rule is to determine if we have a single parameter and if it is a string/object map.
-     * In the constructed JSON, the key will be used as fieldName and the object as field value.
-     * <p>
-     * I chose this construct to allow for many key/values in a single log statement and because a Map<String.Object> is ubiquitous and simple.<br>
-     * It can be that in the future I'll wrap the map in a structure that will be easier to detect while keeping the same flexibility a Map provides.
+     * The key rule is to determine if we have a single parameter and if it is a {@link StructuredLogArgument}.
+     * In the constructed JSON, the message part, if not empty, will appear as an inner field within the message field itself and
+     * the {@link KV} entry/es will be printed in the message field as individual sub entries.
      * <p>
      * example:<br>
      * <pre>
      * {@code
-     * logger.infof("%s", Map.of("buyer", buyerUser,"seller", sellerUser));
-     * logger.infof("", Map.of("buyer", buyerUser,"seller", sellerUser));
-     * logger.infof("this will be ignored", Map.of("buyer", buyerUser,"seller", sellerUser));
+     * logger.infof("maybe a title for the message", logEntry(of("buyer", buyerUser),of("seller", sellerUser)));
+     * }
+     * will render something like:<br>
+     * <pre>
+     * {@code
+     * "message": {
+     *      "_msgTag": "maybe a title for the message",
+     *      "buyer": { "name": "john" },
+     *      "seller": { "name": "tom" }
+     *      }
      * }
      * </pre>
-     * <p>
+     * and<br>
+     * <pre>
+     * {@code
+     * logger.infof("", logEntry(of("buyer", buyerUser),of("seller", sellerUser)));
+     * }
+     * </pre>
      * will render something like:<br>
      * <pre>
      * {@code
@@ -121,18 +131,20 @@ public class LogFunctionsMappings {
      *
      * @return true if the parameter complies with the rules for the message to be considered a "Structured object"
      */
-    private static boolean canBuildStructuredMessage(final Object[] messageParameters) {
-        return messageParameters != null && messageParameters.length == 1 && messageParameters[0] instanceof Map;
+    private static boolean canBuildStructuredJSONMessage(final Object[] messageParameters) {
+        return messageParameters != null && messageParameters.length == 1 && messageParameters[0] instanceof StructuredLogArgument;
     }
 
     private static Object getStructuredMessage(final ExtLogRecord extLogRecord) {
         final Object[] messageParameters = extLogRecord.getParameters();
         final Object   structuredMessage;
 
-        if (canBuildStructuredMessage(messageParameters)) {
+        if (canBuildStructuredJSONMessage(messageParameters)) {
             try {
-                @SuppressWarnings("unchecked")
-                Map<String, Object> map = (Map<String, Object>) messageParameters[0];
+                final Map<String, Object> map = ((StructuredLogArgument) messageParameters[0]).getContentToRender();
+                if (extLogRecord.getMessage() != null || extLogRecord.getMessage().isEmpty()) {
+                    map.put("_msgTag", extLogRecord.getMessage());
+                }
                 structuredMessage = map;
             } catch (ClassCastException e) {
                 // FIXME: could give some sort of option here instead of just exploding.
@@ -143,6 +155,7 @@ public class LogFunctionsMappings {
         } else {
             structuredMessage = extLogRecord.getMessage().formatted(messageParameters);
         }
+
         return structuredMessage;
     }
 
