@@ -32,6 +32,7 @@ public class SerializerUtils {
     private SerializerUtils() {}
 
     public static void addCustomSerializersIfAny(final JsonConfig jsonConfig, final ObjectMapper mapper) {
+
         final Map<String, String> customSerializers = jsonConfig.clientSerializers().customSerializers();
         if (customSerializers == null || customSerializers.isEmpty()) {
             return;
@@ -49,6 +50,7 @@ public class SerializerUtils {
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     private static void instantiateAndAddSerializer(final String serializerName, final ClassLoader threadClassLoader, final SimpleModule module) {
+
         try {
             final Class<?>                              serializer     = threadClassLoader.loadClass(serializerName);
             final ParameterizedType                     genericType    = (ParameterizedType) serializer.getGenericSuperclass();

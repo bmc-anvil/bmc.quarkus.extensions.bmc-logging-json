@@ -47,6 +47,7 @@ public class LauncherTest {
     @Test
     @Disabled
     public void exceptionFormattingTest() {
+
         try {
             BigInteger one   = new BigInteger("1");
             BigInteger two   = new BigInteger("0");
@@ -54,6 +55,7 @@ public class LauncherTest {
         } catch (Exception e) {
             logger.errorf("boom exception thrown", Map.of("testStructure", testingJson), e);
         }
+
     }
 
     @RepeatedTest(5000)
@@ -79,6 +81,7 @@ public class LauncherTest {
 
         @Override
         public String toString() {
+
             return "testingJson{" +
                    ", inner=" + inner +
                    ", lastName='" + lastName + '\'' +
@@ -99,6 +102,7 @@ public class LauncherTest {
 
         @Override
         public String toString() {
+
             return "testingJsonInnerTemporal{" +
                    "instant=" + instant +
                    ", localDate=" + localDate +
@@ -117,6 +121,7 @@ public class LauncherTest {
 
         @Override
         public String toString() {
+
             return "testingJsonInner{" +
                    "innerLastName=" + innerLastName +
                    ", innerName='" + innerName + '\'' +

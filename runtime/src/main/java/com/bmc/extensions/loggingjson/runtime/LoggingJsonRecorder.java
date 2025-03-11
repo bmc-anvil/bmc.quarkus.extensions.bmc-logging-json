@@ -29,6 +29,7 @@ import static java.util.Optional.of;
 public class LoggingJsonRecorder {
 
     public RuntimeValue<Optional<Formatter>> getJsonFormatterForLogOutputType(final JsonLogConfig jsonLogConfig, final LogOutput logOutput) {
+
         return switch (logOutput) {
             case FILE -> createJsonFormater(jsonLogConfig.fileJson());
             case CONSOLE -> createJsonFormater(jsonLogConfig.consoleJson());
@@ -46,6 +47,7 @@ public class LoggingJsonRecorder {
      * {@link JsonFormatter} instance.
      */
     private RuntimeValue<Optional<Formatter>> createJsonFormater(final JsonConfig jsonConfig) {
+
         if (!jsonConfig.enable()) {
             return new RuntimeValue<>(empty());
         }

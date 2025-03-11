@@ -63,7 +63,7 @@ ij_java_blank_lines_around_method                               = 1
 ij_java_blank_lines_around_method_in_interface                  = 1
 ij_java_blank_lines_before_class_end                            = 1
 ij_java_blank_lines_before_imports                              = 1
-ij_java_blank_lines_before_method_body                          = 0
+ij_java_blank_lines_before_method_body                          = 1
 ij_java_blank_lines_before_package                              = 0
 ij_java_block_brace_style                                       = end_of_line
 ij_java_block_comment_add_space                                 = false
@@ -466,6 +466,6 @@ ij_yaml_spaces_within_braces               = true
 ij_yaml_spaces_within_brackets             = true
 
 [*.properties]
-ij_properties_keep_blank_lines = true
-ij_properties_align_group_field_declarations = true
+ij_properties_keep_blank_lines                  = true
+ij_properties_align_group_field_declarations    = true
 ij_properties_spaces_around_key_value_delimiter = false

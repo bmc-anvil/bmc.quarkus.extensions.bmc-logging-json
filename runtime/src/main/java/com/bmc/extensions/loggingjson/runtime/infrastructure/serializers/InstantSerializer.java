@@ -25,6 +25,7 @@ public class InstantSerializer extends JsonSerializer<Instant> {
 
     @Override
     public void serialize(final Instant value, final JsonGenerator gen, final SerializerProvider serializers) throws IOException {
+
         final String formatted = ZonedDateTime.ofInstant(value, zoneId).format(dateTimeFormatter.withZone(zoneId));
 
         gen.writeString(formatted);

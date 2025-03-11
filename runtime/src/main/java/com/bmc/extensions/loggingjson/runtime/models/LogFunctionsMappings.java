@@ -132,17 +132,19 @@ public class LogFunctionsMappings {
      * @return true if the parameter complies with the rules for the message to be considered a "Structured object"
      */
     private static boolean canBuildStructuredJSONMessage(final Object[] messageParameters) {
+
         return messageParameters != null && messageParameters.length == 1 && messageParameters[0] instanceof StructuredLogArgument;
     }
 
     private static Object getStructuredMessage(final ExtLogRecord extLogRecord) {
+
         final Object[] messageParameters = extLogRecord.getParameters();
         final Object   structuredMessage;
 
         if (canBuildStructuredJSONMessage(messageParameters)) {
             try {
                 final Map<String, Object> map = ((StructuredLogArgument) messageParameters[0]).getContentToRender();
-                if (extLogRecord.getMessage() != null || extLogRecord.getMessage().isEmpty()) {
+                if (extLogRecord.getMessage() != null && !extLogRecord.getMessage().isEmpty()) {
                     map.put("_msgTag", extLogRecord.getMessage());
                 }
                 structuredMessage = map;

@@ -98,6 +98,12 @@ public interface JsonConfig {
     boolean prettyPrint();
 
     /**
+     * Prints the classic Java-Style {@link StackTraceElement} array.
+     */
+    @WithDefault("false")
+    boolean printClassicStackTrace();
+
+    /**
      * Enable printing of more details in the log.
      * <p>
      * Printing the details can be expensive as the values are retrieved from the caller. The details include the
@@ -114,12 +120,6 @@ public interface JsonConfig {
      * @see System#lineSeparator()
      */
     Optional<String> recordDelimiter();
-
-    /**
-     * Prints the classic Java-Style {@link StackTraceElement} array.
-     */
-    @WithDefault("false")
-    boolean printClassicStackTrace();
 
     /**
      * Depth of the Suppressed StackTrace to print if any is present.

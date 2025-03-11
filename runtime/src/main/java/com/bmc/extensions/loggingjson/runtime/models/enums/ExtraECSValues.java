@@ -20,6 +20,7 @@ public enum ExtraECSValues {
     private final String value;
 
     ExtraECSValues(final String ecsExtraField, final String value) {
+
         this.ecsExtraField = ecsExtraField;
         this.value         = value;
     }

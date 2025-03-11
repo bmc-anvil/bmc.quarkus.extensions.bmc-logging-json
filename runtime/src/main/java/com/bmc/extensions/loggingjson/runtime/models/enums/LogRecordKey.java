@@ -48,6 +48,7 @@ public enum LogRecordKey {
     private final String value;
 
     LogRecordKey(final String value) {
+
         this.value = value;
     }
 

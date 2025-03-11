@@ -16,6 +16,7 @@ public class InstantSerializerFactory {
     private InstantSerializerFactory() {}
 
     public static InstantSerializer getInstantSerializer(final String pattern, final JsonConfig jsonConfig) {
+
         final DateTimeFormatter formatter             = DateTimeUtils.getDateTimeFormatterWithZone(pattern, jsonConfig);
         final InstantSerializer initializedSerializer = new InstantSerializer();
 

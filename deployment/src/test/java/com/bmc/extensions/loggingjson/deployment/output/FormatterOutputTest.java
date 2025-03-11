@@ -26,8 +26,9 @@ import org.jboss.logmanager.Level;
 import org.jboss.logmanager.formatters.PatternFormatter;
 import org.jboss.logmanager.handlers.ConsoleHandler;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static com.bmc.extensions.loggingjson.runtime.models.KV.of;
 import static com.bmc.extensions.loggingjson.runtime.models.StructuredLogArgument.logEntry;
@@ -65,7 +66,6 @@ public class FormatterOutputTest {
     final        String              loggerName              = "loggerName";
     final        ObjectMapper        mapper                  = new ObjectMapper();
     final        Map<String, String> mdc                     = Map.of("mdcKey_01", "mdcValue_01", "mdcKey_02", "mdcValue_02");
-    final        String              message                 = "";
     final        String              ndc                     = "Dummy NDC String";
     final        Map<String, Object> expectedKeys            = new HashMap<>(ofEntries(entry("level", level),
                                                                                        entry("additionalFields", additionalFieldsWrapped),
@@ -87,6 +87,7 @@ public class FormatterOutputTest {
 
     @BeforeAll
     static void setup() {
+
         dummyAddressPOJO.setDummyCity("dummy city");
         dummyAddressPOJO.setDummyStreet("dummy street");
 
@@ -109,11 +110,11 @@ public class FormatterOutputTest {
     /**
      * FIxME: add message tag testing
      */
-    @Test
-    public void formatterOutputTest() throws IOException {
+    @ParameterizedTest
+    @ValueSource(strings = {"", "   ", "test message to appear in message tag"})
+    public void formatterOutputTest(final String message) throws IOException {
 
-        final ExtLogRecord extLogRecord = new ExtLogRecord(level, message, loggerClassName);
-
+        final ExtLogRecord          extLogRecord      = new ExtLogRecord(level, message, loggerClassName);
         final StructuredLogArgument structureToOutput = logEntry(of("dummyPojo", dummyPOJO), of("dummyAddressPojo", dummyAddressPOJO));
         final Object[]              parameters        = new Object[]{structureToOutput};
 
@@ -133,9 +134,15 @@ public class FormatterOutputTest {
             assertOutput(it.next(), outputAsJsonNode);
         }
 
+        if (message != null && !message.isEmpty()) {
+            assertEquals(message, outputAsJsonNode.get("message").get("_msgTag").asText());
+        } else {
+            assertNull(outputAsJsonNode.get("message").get("_msgTag"));
+        }
     }
 
     private void assertDetails(final JsonNode outputAsJsonNode) {
+
         outputAsJsonNode.get("details").fields().forEachRemaining(entry -> {
             assertTrue(detailsFields.contains(entry.getKey()));
             assertNotNull(entry.getValue().asText());
@@ -144,6 +151,7 @@ public class FormatterOutputTest {
     }
 
     private void assertMessage(final JsonNode outputAsJsonNode) {
+
         final JsonNode dummyPOJOFromLog        = outputAsJsonNode.get("message").get("dummyPojo");
         final JsonNode dummyAddressPOJOFromLog = outputAsJsonNode.get("message").get("dummyAddressPojo");
 
@@ -163,10 +171,12 @@ public class FormatterOutputTest {
     }
 
     private void assertNotNullField(final String fieldName, final JsonNode outputAsJsonNode, final String assertMsg) {
+
         assertNotNull(outputAsJsonNode.get(fieldName), assertMsg);
     }
 
     private void assertOutput(final String fieldName, final JsonNode outputAsJsonNode) {
+
         assertTrue(expectedKeys.containsKey(fieldName), "evaluating: " + fieldName);
         final String assertMsg = "Mismatch in field:" + fieldName;
 
@@ -183,6 +193,7 @@ public class FormatterOutputTest {
     }
 
     private void assertSimpleMapFields(final String fieldName, final JsonNode outputAsJsonNode, final String assertMsg) {
+
         outputAsJsonNode.get(fieldName).fields().forEachRemaining(entry -> {
             final String key   = entry.getKey();
             final String value = entry.getValue().asText();
@@ -194,6 +205,7 @@ public class FormatterOutputTest {
     }
 
     private void assertTextField(final String fieldName, final JsonNode outputAsJsonNode, final String assertMsg) {
+
         assertEquals(expectedKeys.get(fieldName), outputAsJsonNode.get(fieldName).asText(), assertMsg);
     }
 
@@ -208,6 +220,7 @@ public class FormatterOutputTest {
     }
 
     private String getHostName() {
+
         try {
             return InetAddress.getLocalHost().getHostName();
         } catch (UnknownHostException e) {

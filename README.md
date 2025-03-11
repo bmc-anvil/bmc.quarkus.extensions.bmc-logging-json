@@ -1,5 +1,7 @@
 # BMC-logging-json
+
 [![Qodana](https://github.com/bmc-anvil/bmc-logging-json/actions/workflows/qodana_code_quality.yml/badge.svg)](https://github.com/bmc-anvil/bmc-logging-json/actions/workflows/qodana_code_quality.yml)
+
 ## Structured JSON formatting support for [Quarkus](https://quarkus.io) logging
 
 ## Motivation

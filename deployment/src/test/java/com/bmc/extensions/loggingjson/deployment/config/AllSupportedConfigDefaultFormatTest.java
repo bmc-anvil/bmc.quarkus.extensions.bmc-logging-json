@@ -43,6 +43,7 @@ public class AllSupportedConfigDefaultFormatTest {
 
     @Test
     public void fullConfigurationTest() {
+
         final QuarkusDelayedHandler delayedHandler = DELAYED_HANDLER;
 
         final ConsoleHandler consoleHandler = Arrays.stream(delayedHandler.getHandlers()).filter(handler -> handler instanceof ConsoleHandler)
@@ -65,6 +66,7 @@ public class AllSupportedConfigDefaultFormatTest {
     }
 
     private void assertFullJsonConfig(final JsonConfig jsonConfig) {
+
         final ClientSerializerConfig clientSerializer = jsonConfig.clientSerializers();
 
         // assert top level config

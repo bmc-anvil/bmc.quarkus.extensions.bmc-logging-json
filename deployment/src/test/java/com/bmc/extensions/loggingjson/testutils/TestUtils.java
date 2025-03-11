@@ -15,6 +15,7 @@ public class TestUtils {
     private TestUtils() {}
 
     public static JsonConfig extractJsonConfig(JsonFormatter formatter) {
+
         try {
             Field configField = JsonFormatter.class.getDeclaredField("jsonConfig");
             configField.setAccessible(true);

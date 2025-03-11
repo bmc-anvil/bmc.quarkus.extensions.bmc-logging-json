@@ -31,6 +31,7 @@ public class AllSupportedLoggingJsonDisabledConfigTest {
 
     @Test
     public void loggingJsonDisabledTest() {
+
         final QuarkusDelayedHandler delayedHandler = InitialConfigurator.DELAYED_HANDLER;
 
         int[] handlerCounter = Arrays.stream(delayedHandler.getHandlers()).reduce(new int[]{0, 0}, (accumulator, handler) -> {

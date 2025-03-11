@@ -13,9 +13,11 @@ import static org.jboss.logmanager.formatters.StackTraceFormatter.renderStackTra
 public class StructuredExceptionUtils {
 
     private StructuredExceptionUtils() {
+
     }
 
     public static void printClassicStackTrace(final Throwable throwable, final Map<String, Object> fieldsToRender, final JsonConfig jsonConfig) {
+
         final StringBuilder writer = new StringBuilder();
         renderStackTrace(writer, throwable, jsonConfig.stackTraceSuppressedDepth());
         fieldsToRender.put("stackTrace", writer.toString());

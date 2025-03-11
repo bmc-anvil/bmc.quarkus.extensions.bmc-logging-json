@@ -25,6 +25,7 @@ public class StructuredLogArgument {
     private final        LogEntryPosition    logEntryPosition;
 
     private StructuredLogArgument(final Map<String, Object> contentToRender, final LogEntryPosition logEntryPosition) {
+
         this.contentToRender  = contentToRender;
         this.logEntryPosition = logEntryPosition;
     }
@@ -59,6 +60,7 @@ public class StructuredLogArgument {
      * @return a new instance of {@link StructuredLogArgument} containing the given key-value entries and position
      */
     public static StructuredLogArgument logEntry(final KV... structuredEntries) {
+
         return logEntry(DEFAULT_POSITION, structuredEntries);
     }
 

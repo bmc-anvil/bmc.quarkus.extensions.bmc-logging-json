@@ -29,6 +29,7 @@ public class JsonFormatter extends ExtFormatter {
     private final StructuredLog structuredLog;
 
     public JsonFormatter(final JsonConfig jsonConfig, final StructuredLog structuredLog, final JsonFactory jsonFactory) {
+
         this.jsonFactory   = jsonFactory;
         this.jsonConfig    = jsonConfig;
         this.structuredLog = structuredLog;
@@ -51,6 +52,7 @@ public class JsonFormatter extends ExtFormatter {
      */
     @Override
     public String format(final ExtLogRecord record) {
+
         final Map<String, Object> fieldsToPrint = new HashMap<>();
 
         populateCoreFields(record, structuredLog, fieldsToPrint);

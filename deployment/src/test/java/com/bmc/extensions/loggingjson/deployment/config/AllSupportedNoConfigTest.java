@@ -35,6 +35,7 @@ public class AllSupportedNoConfigTest {
 
     @Test
     public void fullDefaultConfigurationTest() {
+
         final QuarkusDelayedHandler delayedHandler = InitialConfigurator.DELAYED_HANDLER;
 
         int[] handlerCounter = Arrays.stream(delayedHandler.getHandlers()).reduce(new int[]{0, 0}, (accumulator, handler) -> {
@@ -58,6 +59,7 @@ public class AllSupportedNoConfigTest {
     }
 
     private void assertDefaultJsonConfig(final JsonConfig jsonConfig) {
+
         final ClientSerializerConfig clientSerializer = jsonConfig.clientSerializers();
 
         assertTrue(jsonConfig.enable());

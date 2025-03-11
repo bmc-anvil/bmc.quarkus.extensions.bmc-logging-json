@@ -28,6 +28,7 @@ public class JacksonMapperFactory {
     private JacksonMapperFactory() {}
 
     public static JsonFactory getJacksonJSONFactory(final JsonConfig jsonConfig) {
+
         final ObjectMapper mapper = new ObjectMapper();
 
         mapper.disable(WRITE_DATES_AS_TIMESTAMPS);

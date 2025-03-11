@@ -34,6 +34,7 @@ public enum LogRecordKeyECS {
     private final String standardValue;
 
     LogRecordKeyECS(final String standardValue, final String ecsValue) {
+
         this.standardValue = standardValue;
         this.ecsValue      = ecsValue;
     }

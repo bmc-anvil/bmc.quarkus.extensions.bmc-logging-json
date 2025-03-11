@@ -24,26 +24,31 @@ import static java.util.Optional.ofNullable;
 public class StructuredLogDataUtils {
 
     private StructuredLogDataUtils() {
+
     }
 
     private static Map<String, Object> extractDataFromRecord(final ExtLogRecord record, final Map<String, Function<ExtLogRecord, ?>> template) {
+
         final Map<String, Object> map = new HashMap<>();
         template.forEach((key, dataExtractingFunction) -> map.put(key, dataExtractingFunction.apply(record)));
         return map;
     }
 
     public static void populateAdditionalFieldsIfPresent(final StructuredLog structuredLog, final Map<String, Object> fieldsToRender) {
+
         ofNullable(structuredLog.getAdditionalFieldsTop()).ifPresent(fieldsToRender::putAll);
         ofNullable(structuredLog.getAdditionalFieldsWrapped()).ifPresent(fields -> fieldsToRender.put("additionalFields", fields));
     }
 
     public static void populateCoreFields(final ExtLogRecord record, final StructuredLog structuredLog,
             final Map<String, Object> fieldsToRender) {
+
         fieldsToRender.putAll(extractDataFromRecord(record, structuredLog.getCoreRecordMapping()));
     }
 
     public static void populateDetailsIfEnabled(final ExtLogRecord record, final StructuredLog structuredLog,
             final Map<String, Object> fieldsToRender, final Boolean printDetails) {
+
         if (printDetails) {
             fieldsToRender.put("details", extractDataFromRecord(record, structuredLog.getDetailsMapping()));
         }
@@ -51,6 +56,7 @@ public class StructuredLogDataUtils {
 
     public static void populateExceptionIfPresent(final ExtLogRecord record, final StructuredLog structuredLog,
             final Map<String, Object> fieldsToRender, final JsonConfig jsonConfig) {
+
         if (record.getThrown() == null) {
             return;
         }

@@ -36,37 +36,43 @@ public class DateTimeUtils {
     private DateTimeUtils() {}
 
     public static JavaTimeModule configureClientDateTime(final JsonConfig jsonConfig) {
+
         final JavaTimeModule         javaTimeModule    = new JavaTimeModule();
         final ClientSerializerConfig clientSerializers = jsonConfig.clientSerializers();
 
         clientSerializers.localDateTimeFormat()
-                .ifPresent(pattern -> javaTimeModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(getDateTimeFormatter(pattern))));
+                         .ifPresent(pattern -> javaTimeModule.addSerializer(LocalDateTime.class,
+                                                                            new LocalDateTimeSerializer(getDateTimeFormatter(pattern))));
 
         clientSerializers.localDateFormat()
-                .ifPresent(pattern -> javaTimeModule.addSerializer(LocalDate.class, new LocalDateSerializer(getDateTimeFormatter(pattern))));
+                         .ifPresent(pattern -> javaTimeModule.addSerializer(LocalDate.class, new LocalDateSerializer(getDateTimeFormatter(pattern))));
 
         clientSerializers.localTimeFormat()
-                .ifPresent(pattern -> javaTimeModule.addSerializer(LocalTime.class, new LocalTimeSerializer(getDateTimeFormatter(pattern))));
+                         .ifPresent(pattern -> javaTimeModule.addSerializer(LocalTime.class, new LocalTimeSerializer(getDateTimeFormatter(pattern))));
 
         clientSerializers.localDateTimeFormat()
-                .ifPresent(pattern -> javaTimeModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(getDateTimeFormatter(pattern))));
+                         .ifPresent(pattern -> javaTimeModule.addSerializer(LocalDateTime.class,
+                                                                            new LocalDateTimeSerializer(getDateTimeFormatter(pattern))));
 
         clientSerializers.zonedDateTimeFormat()
-                .ifPresent(pattern -> javaTimeModule
-                        .addSerializer(ZonedDateTime.class, new ZonedDateTimeSerializer(getDateTimeFormatterWithZone(pattern, jsonConfig))));
+                         .ifPresent(pattern -> javaTimeModule
+                                 .addSerializer(ZonedDateTime.class, new ZonedDateTimeSerializer(getDateTimeFormatterWithZone(pattern, jsonConfig))));
 
-        clientSerializers.instantFormat().ifPresent(pattern -> javaTimeModule.addSerializer(Instant.class, getInstantSerializer(pattern, jsonConfig)));
+        clientSerializers.instantFormat()
+                         .ifPresent(pattern -> javaTimeModule.addSerializer(Instant.class, getInstantSerializer(pattern, jsonConfig)));
 
         return javaTimeModule;
     }
 
     public static DateTimeFormatter getDateTimeFormatter(final String pattern) {
+
         return Optional.ofNullable(pattern)
                        .map(DateTimeFormatter::ofPattern)
                        .orElseGet(() -> ISO_LOCAL_DATE_TIME);
     }
 
     public static DateTimeFormatter getDateTimeFormatterWithZone(final String pattern, final JsonConfig jsonConfig) {
+
         return Optional.ofNullable(pattern)
                        .map(DateTimeFormatter::ofPattern)
                        .orElseGet(() -> ISO_OFFSET_DATE_TIME)
@@ -74,9 +80,10 @@ public class DateTimeUtils {
     }
 
     public static ZoneId getZoneId(final JsonConfig jsonConfig) {
+
         return jsonConfig.logZoneId()
-                .map(ZoneId::of)
-                .orElseGet(ZoneId::systemDefault);
+                         .map(ZoneId::of)
+                         .orElseGet(ZoneId::systemDefault);
     }
 
 }

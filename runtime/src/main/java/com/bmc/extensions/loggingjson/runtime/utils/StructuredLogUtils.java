@@ -47,10 +47,12 @@ public class StructuredLogUtils {
     }
 
     public static void applyExclusionsIfAny(final JsonConfig jsonConfig, final StructuredLog structuredLog) {
+
         jsonConfig.excludedKeys().ifPresent(excludedKeys -> excludedKeys.forEach(structuredLog.getCoreRecordMapping()::remove));
     }
 
     public static void applyOverridesIfAny(final Map<String, String> overrideMap, final StructuredLog structuredLog) {
+
         final Map<String, Function<ExtLogRecord, ?>> basicRecordMapping = structuredLog.getCoreRecordMapping();
 
         overrideMap.forEach((oldKeyName, newKeyName) -> {
@@ -61,6 +63,7 @@ public class StructuredLogUtils {
     }
 
     public static EnumMap<LogRecordKey, String> buildDefaultKeys() {
+
         return stream(LogRecordKey.values()).collect(toMap(
                 identity(), LogRecordKey::getValue,         // key and value
                 (v1, v2) -> v1,                 // collision OP(merge F()): none required
@@ -68,6 +71,7 @@ public class StructuredLogUtils {
     }
 
     public static void setStructuredLogInstantFormatting(final StructuredLog structuredLog, final JsonConfig jsonConfig) {
+
         final String                         logInstantFormatterPattern = jsonConfig.logDateTimeFormat().orElse(null);
         final DateTimeFormatter              logFormatter               = getDateTimeFormatterWithZone(logInstantFormatterPattern, jsonConfig);
         final Function<ExtLogRecord, String> formatedInstantFunction    = extLogRecord -> logFormatter.format(extLogRecord.getInstant());
@@ -76,6 +80,7 @@ public class StructuredLogUtils {
     }
 
     public static void updateConfigIfLogFormatIsECS(final JsonConfig jsonConfig) {
+
         if (!jsonConfig.logFormat().equals(LogFormat.ECS)) {
             return;
         }

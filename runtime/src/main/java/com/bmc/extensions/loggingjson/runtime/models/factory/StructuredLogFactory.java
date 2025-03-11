@@ -40,6 +40,7 @@ public class StructuredLogFactory {
      * basic record fields, exception handling, optional detailed mappings, and additional fields, based on the provided configuration.
      */
     public static StructuredLog getPrecomputedStructuredLog(final JsonConfig jsonConfig) {
+
         final LogFunctionsMappings logFunctionsMappings = new LogFunctionsMappings();
         final StructuredLog        structuredLog        = new StructuredLog();
 
