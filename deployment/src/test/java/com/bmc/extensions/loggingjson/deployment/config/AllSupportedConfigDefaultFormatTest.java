@@ -18,9 +18,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static com.bmc.extensions.loggingjson.runtime.models.enums.LogFormat.DEFAULT;
+import static com.bmc.extensions.loggingjson.runtime.models.enums.StackTraceDetail.ONE_LINER;
 import static com.bmc.extensions.loggingjson.testutils.TestUtils.extractJsonConfig;
 import static io.quarkus.bootstrap.logging.InitialConfigurator.DELAYED_HANDLER;
-import static org.jboss.logmanager.formatters.StructuredFormatter.ExceptionOutputType.DETAILED;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -76,7 +76,7 @@ public class AllSupportedConfigDefaultFormatTest {
         assertEquals("+05:00", jsonConfig.logZoneId().orElseThrow());
         assertEquals("yyyy-MM-dd'T'HH:mm:ss.SSSZ", jsonConfig.logDateTimeFormat().orElseThrow());
         assertEquals(DEFAULT, jsonConfig.logFormat());
-        assertEquals(DETAILED, jsonConfig.exceptionOutputType());
+        assertEquals(ONE_LINER, jsonConfig.exceptionDetail());
 
         jsonConfig.excludedKeys().get().forEach(key -> assertTrue(excludedKeys.contains(key)));
 

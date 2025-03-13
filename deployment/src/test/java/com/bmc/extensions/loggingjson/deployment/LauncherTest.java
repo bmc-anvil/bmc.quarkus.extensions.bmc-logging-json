@@ -1,5 +1,6 @@
 package com.bmc.extensions.loggingjson.deployment;
 
+import java.io.InvalidClassException;
 import java.math.BigInteger;
 import java.time.*;
 import java.util.Arrays;
@@ -53,7 +54,7 @@ public class LauncherTest {
             BigInteger two   = new BigInteger("0");
             BigInteger three = one.divide(two);
         } catch (Exception e) {
-            logger.errorf("boom exception thrown", Map.of("testStructure", testingJson), e);
+            logger.error("boom exception thrown", new InvalidClassException("and it was", e));
         }
 
     }

@@ -67,7 +67,7 @@ public class FormatterOutputTest {
     final        ObjectMapper        mapper                  = new ObjectMapper();
     final        Map<String, String> mdc                     = Map.of("mdcKey_01", "mdcValue_01", "mdcKey_02", "mdcValue_02");
     final        String              ndc                     = "Dummy NDC String";
-    final        Map<String, Object> expectedKeys            = new HashMap<>(ofEntries(entry("level", level),
+    final        Map<String, Object> expectedKeys            = new LinkedHashMap<>(ofEntries(entry("level", level),
                                                                                        entry("additionalFields", additionalFieldsWrapped),
                                                                                        entry("loggerClassName", loggerClassName),
                                                                                        entry("foo", "bar"),

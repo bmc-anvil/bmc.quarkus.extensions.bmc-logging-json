@@ -1,14 +1,16 @@
 package com.bmc.extensions.loggingjson.runtime.utils;
 
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.bmc.extensions.loggingjson.runtime.config.properties.JsonConfig;
-import com.bmc.extensions.loggingjson.runtime.models.enums.LogRecordKey;
+import com.bmc.extensions.loggingjson.runtime.models.StructuredLog;
 
-import static com.bmc.extensions.loggingjson.runtime.models.enums.LogRecordKey.*;
-import static org.jboss.logmanager.formatters.StackTraceFormatter.renderStackTrace;
+import org.jboss.logmanager.ExtLogRecord;
+import org.jboss.logmanager.formatters.StackTraceFormatter;
+
+import lombok.Getter;
 
 public class StructuredExceptionUtils {
 
@@ -16,40 +18,75 @@ public class StructuredExceptionUtils {
 
     }
 
-    public static void printClassicStackTrace(final Throwable throwable, final Map<String, Object> fieldsToRender, final JsonConfig jsonConfig) {
+    public static String printClassicStackTrace(final ExtLogRecord record, final StructuredLog structuredLog) {
 
         final StringBuilder writer = new StringBuilder();
-        renderStackTrace(writer, throwable, jsonConfig.stackTraceSuppressedDepth());
-        fieldsToRender.put("stackTrace", writer.toString());
+        writer.append(record.getThrown().getMessage());
+        StackTraceFormatter.renderStackTrace(writer, record.getThrown(), structuredLog.getJsonConfig().exceptionSTSuppressedDepth());
+        return writer.toString();
     }
 
-    public static void printStructuredException(final Throwable throwable, final Map<LogRecordKey, String> recordKeys,
-            final Map<String, Object> fieldsToRender, final JsonConfig jsonConfig) {
+    public static Object printInnerStackTrace(final ExtLogRecord record, final StructuredLog structuredLog) {
 
-        final Map<String, Object> exceptions = new HashMap<>();
+        final Throwable throwable = record.getThrown();
 
-        Map<Integer, String>      stackMap   = new HashMap<>();
-        final StackTraceElement[] stackTrace = throwable.getStackTrace();
-        String[] stackList = Arrays.stream(throwable.getStackTrace())
-                                   .toList().stream()
-                                   .map(StackTraceElement::toString)
-                                   .toList().toArray(new String[0]);
+        return switch (structuredLog.getJsonConfig().exceptionDetail()) {
+            case ONE_LINER -> addOneLineStackTrace(throwable.getStackTrace());
+            case CML -> addCMLStackTrace(throwable.getStackTrace());
+            case CLASSIC -> addClassicStackTrace(throwable, structuredLog.getJsonConfig());
+            case FULL -> addFullStackTrace(throwable.getStackTrace());
+            case OFF -> null;
+        };
+    }
 
-        for (int i = 0; i < stackTrace.length; i++) {
-            stackMap.put(i, stackTrace[i].toString());
-        }
+    public static Map<String, Object> printStructuredException(final ExtLogRecord record, final StructuredLog structuredLog) {
 
-        exceptions.put(recordKeys.get(EXCEPTION_TYPE), throwable.getClass().getName());
-        exceptions.put(recordKeys.get(EXCEPTION_MESSAGE), throwable.getMessage());
-        // FIXME: add a formatted stacktrace
-        //        exceptions.put(EXCEPTION_FRAMES, thrown.getStackTrace());
-        exceptions.put(recordKeys.get(EXCEPTION_CAUSED_BY), throwable.getCause());
-        //        exceptions.put("StackTrace", Arrays.toString(thrownException.getStackTrace()).replaceAll("\\[|\\]", "").replaceAll(",", "\n"));
-        //        exceptions.put("StackTrace", Arrays.asList(thrownException.getStackTrace()));
-        exceptions.put("stackTraceMAP", stackMap);
-        exceptions.put("stackTraceList", stackList);
+        final Map<String, Object> map = new LinkedHashMap<>();
+        structuredLog.getExceptionInnerMapping()
+                     .forEach((key, dataExtractingFunction)
+                                      -> map.put(key, dataExtractingFunction.apply(record, structuredLog)));
+        return map;
+    }
 
-        fieldsToRender.put("exceptions", exceptions);
+    private static Object addCMLStackTrace(final StackTraceElement[] stackTrace) {
+
+        return Arrays.stream(stackTrace)
+                     .map(stackTraceElement -> {
+                         final CML cml = new CML();
+                         cml.className = stackTraceElement.getClassName();
+                         cml.line      = stackTraceElement.getLineNumber();
+                         cml.method    = stackTraceElement.getMethodName();
+                         return cml;
+                     })
+                     .toArray(CML[]::new);
+    }
+
+    private static String addClassicStackTrace(final Throwable throwable, final JsonConfig jsonConfig) {
+
+        final StringBuilder writer = new StringBuilder();
+        StackTraceFormatter.renderStackTrace(writer, throwable, jsonConfig.exceptionSTSuppressedDepth());
+        return writer.toString();
+    }
+
+    private static Object addFullStackTrace(final StackTraceElement[] stackTrace) {
+
+        return stackTrace;
+    }
+
+    private static Object addOneLineStackTrace(final StackTraceElement[] stackTrace) {
+
+        return Arrays.stream(stackTrace)
+                     .map(StackTraceElement::toString)
+                     .toList();
+    }
+
+    @Getter
+    public static class CML {
+
+        String className;
+        int    line;
+        String method;
+
     }
 
 }

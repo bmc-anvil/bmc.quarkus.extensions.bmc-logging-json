@@ -1,9 +1,10 @@
 package com.bmc.extensions.loggingjson.runtime.models;
 
-import java.util.EnumMap;
 import java.util.Map;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
+import com.bmc.extensions.loggingjson.runtime.config.properties.JsonConfig;
 import com.bmc.extensions.loggingjson.runtime.models.enums.LogRecordKey;
 
 import org.jboss.logmanager.ExtLogRecord;
@@ -19,7 +20,8 @@ import lombok.Setter;
  * It plays a central role in optimizing the data extraction, field names, etc., as before being used, it's heavily modified to contain only the data
  * required by the end user via configuration.
  * <p>
- * This model reduces querying configuration for naming overrides, formats details etc. as everything will be precomputed and stored into this model.
+ * This model reduces querying configuration for naming overrides, formats, details, etc. as everything will be precomputed and stored into this
+ * model.
  * <p>
  * Each one of the xxxMapping fields associates a top level log key with a function that will extract that corresponding data from a
  * {@link ExtLogRecord }
@@ -38,11 +40,13 @@ import lombok.Setter;
 @Setter
 public class StructuredLog {
 
-    private Map<String, Object>                    additionalFieldsTop;
-    private Map<String, Object>                    additionalFieldsWrapped;
-    private Map<String, Function<ExtLogRecord, ?>> coreRecordMapping;
-    private Map<String, Function<ExtLogRecord, ?>> detailsMapping;
-    private Map<String, Function<ExtLogRecord, ?>> exceptionMapping;
-    private EnumMap<LogRecordKey, String>          recordKeys;
+    private Map<String, Object>                                     additionalFieldsTop;
+    private Map<String, Object>                                     additionalFieldsWrapped;
+    private Map<String, Function<ExtLogRecord, ?>>                  coreRecordMapping;
+    private Map<String, Function<ExtLogRecord, ?>>                  detailsMapping;
+    private Map<String, BiFunction<ExtLogRecord, StructuredLog, ?>> exceptionInnerMapping;
+    private Map<String, BiFunction<ExtLogRecord, StructuredLog, ?>> exceptionMapping;
+    private Map<String, BiFunction<ExtLogRecord, StructuredLog, ?>> exceptionStackTraceTopMapping;
+    private JsonConfig                                              jsonConfig;
 
 }

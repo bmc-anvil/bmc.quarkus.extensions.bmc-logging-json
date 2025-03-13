@@ -54,7 +54,7 @@ public class LoggingJsonRecorder {
 
         final StructuredLog structuredLog = getPrecomputedStructuredLog(jsonConfig);
         final JsonFactory   jsonFactory   = getJacksonJSONFactory(jsonConfig);
-        final JsonFormatter jsonFormatter = new JsonFormatter(jsonConfig, structuredLog, jsonFactory);
+        final JsonFormatter jsonFormatter = new JsonFormatter(structuredLog, jsonFactory);
 
         return new RuntimeValue<>(of(jsonFormatter));
     }

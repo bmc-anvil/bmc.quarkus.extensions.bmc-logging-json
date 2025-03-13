@@ -17,8 +17,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static com.bmc.extensions.loggingjson.runtime.models.enums.LogFormat.DEFAULT;
+import static com.bmc.extensions.loggingjson.runtime.models.enums.StackTraceDetail.ONE_LINER;
 import static com.bmc.extensions.loggingjson.testutils.TestUtils.extractJsonConfig;
-import static org.jboss.logmanager.formatters.StructuredFormatter.ExceptionOutputType.DETAILED;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -77,7 +77,7 @@ public class AllSupportedNoConfigTest {
         assertTrue(clientSerializer.zonedDateTimeFormat().isEmpty());
 
         assertEquals(DEFAULT, jsonConfig.logFormat());
-        assertEquals(DETAILED, jsonConfig.exceptionOutputType());
+        assertEquals(ONE_LINER, jsonConfig.exceptionDetail());
 
         assertFalse(jsonConfig.prettyPrint());
         assertFalse(jsonConfig.printDetails());

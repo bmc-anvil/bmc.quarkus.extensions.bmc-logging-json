@@ -1,9 +1,8 @@
 package com.bmc.extensions.loggingjson.runtime.core;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
-import com.bmc.extensions.loggingjson.runtime.config.properties.JsonConfig;
 import com.bmc.extensions.loggingjson.runtime.models.StructuredLog;
 import com.fasterxml.jackson.core.JsonFactory;
 
@@ -24,14 +23,12 @@ import static com.bmc.extensions.loggingjson.runtime.utils.StructuredLogDataUtil
  */
 public class JsonFormatter extends ExtFormatter {
 
-    private final JsonConfig    jsonConfig;
     private final JsonFactory   jsonFactory;
     private final StructuredLog structuredLog;
 
-    public JsonFormatter(final JsonConfig jsonConfig, final StructuredLog structuredLog, final JsonFactory jsonFactory) {
+    public JsonFormatter(final StructuredLog structuredLog, final JsonFactory jsonFactory) {
 
         this.jsonFactory   = jsonFactory;
-        this.jsonConfig    = jsonConfig;
         this.structuredLog = structuredLog;
     }
 
@@ -53,14 +50,14 @@ public class JsonFormatter extends ExtFormatter {
     @Override
     public String format(final ExtLogRecord record) {
 
-        final Map<String, Object> fieldsToPrint = new HashMap<>();
+        final Map<String, Object> fieldsToPrint = new LinkedHashMap<>();
 
         populateCoreFields(record, structuredLog, fieldsToPrint);
         populateAdditionalFieldsIfPresent(structuredLog, fieldsToPrint);
-        populateDetailsIfEnabled(record, structuredLog, fieldsToPrint, jsonConfig.printDetails());
-        populateExceptionIfPresent(record, structuredLog, fieldsToPrint, jsonConfig);
+        populateDetailsIfEnabled(record, structuredLog, fieldsToPrint);
+        populateExceptionIfPresent(record, structuredLog, fieldsToPrint);
 
-        return formatRecord(fieldsToPrint, jsonFactory, jsonConfig);
+        return formatRecord(fieldsToPrint, jsonFactory, structuredLog.getJsonConfig());
     }
 
 }

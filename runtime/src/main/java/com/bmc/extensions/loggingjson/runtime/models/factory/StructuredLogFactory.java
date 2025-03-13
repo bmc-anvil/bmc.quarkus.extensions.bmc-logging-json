@@ -44,16 +44,18 @@ public class StructuredLogFactory {
         final LogFunctionsMappings logFunctionsMappings = new LogFunctionsMappings();
         final StructuredLog        structuredLog        = new StructuredLog();
 
-        structuredLog.setRecordKeys(buildDefaultKeys());
+        structuredLog.setJsonConfig(jsonConfig);
         structuredLog.setCoreRecordMapping(logFunctionsMappings.getBasicRecordMapping());
-        structuredLog.setExceptionMapping(logFunctionsMappings.getExceptionMapping());
         structuredLog.setDetailsMapping(jsonConfig.printDetails() ? logFunctionsMappings.getDetailsMapping() : null);
-        setStructuredLogInstantFormatting(structuredLog, jsonConfig);
+        structuredLog.setExceptionMapping(logFunctionsMappings.getExceptionMapping());
+        structuredLog.setExceptionInnerMapping(logFunctionsMappings.getExceptionInnerMapping());
+        structuredLog.setExceptionStackTraceTopMapping(logFunctionsMappings.getTopStackTraceMapping());
 
-        applyExclusionsIfAny(jsonConfig, structuredLog);
-        applyOverridesIfAny(jsonConfig.keyOverrides(), structuredLog);
+        setStructuredLogInstantFormatting(structuredLog);
+        applyExclusionsIfAny(structuredLog);
+        applyOverridesIfAny(structuredLog);
         updateConfigIfLogFormatIsECS(jsonConfig);
-        addAdditionalFieldsIfAny(jsonConfig, structuredLog);
+        addAdditionalFieldsIfAny(structuredLog);
 
         return structuredLog;
     }

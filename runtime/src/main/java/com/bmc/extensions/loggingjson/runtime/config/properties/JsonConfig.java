@@ -7,12 +7,11 @@ import java.util.Optional;
 import java.util.Set;
 
 import com.bmc.extensions.loggingjson.runtime.models.enums.LogFormat;
+import com.bmc.extensions.loggingjson.runtime.models.enums.StackTraceDetail;
 
 import io.quarkus.runtime.annotations.ConfigDocMapKey;
 import io.quarkus.runtime.annotations.ConfigGroup;
 import io.smallrye.config.WithDefault;
-
-import org.jboss.logmanager.formatters.StructuredFormatter;
 
 /**
  * Configuration interface for structuring JSON output.
@@ -47,10 +46,33 @@ public interface JsonConfig {
     boolean enable();
 
     /**
-     * The exception output type to specify.
+     * The detail in which exception {@link StackTraceElement} will be printed inside the exception field.<br>
+     * defaults to {@link StackTraceDetail#ONE_LINER}.
+     * <p>
+     * Options are:
+     * <p>
+     * {@link StackTraceDetail#ONE_LINER}: each element is printed in a single line.<br>
+     * {@link StackTraceDetail#CML}: each element is printed as an entry showing Class-Method-Line info.<br>
+     * {@link StackTraceDetail#FULL}: each element is printed as an entry with all available info.<br>
+     * {@link StackTraceDetail#OFF}: no stack trace information is printed at all.<br>
      */
-    @WithDefault("detailed")
-    StructuredFormatter.ExceptionOutputType exceptionOutputType();
+    @WithDefault("ONE_LINER")
+    StackTraceDetail exceptionDetail();
+
+    /**
+     * Depth of the Suppressed StackTrace to print if any is present.
+     * <p>
+     * Defaults to 0
+     */
+    @WithDefault("0")
+    int exceptionSTSuppressedDepth();
+
+    /**
+     * Controls if the stacktrace is shown as a separate field<br>
+     * defaults to {@code true}
+     */
+    @WithDefault("true")
+    boolean exceptionStackTraceAsTopField();
 
     /**
      * Keys to be excluded from the JSON output.
@@ -120,13 +142,5 @@ public interface JsonConfig {
      * @see System#lineSeparator()
      */
     Optional<String> recordDelimiter();
-
-    /**
-     * Depth of the Suppressed StackTrace to print if any is present.
-     * <p>
-     * Defaults to 0
-     */
-    @WithDefault("0")
-    int stackTraceSuppressedDepth();
 
 }
