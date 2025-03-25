@@ -5,7 +5,7 @@
 
     <groupId>com.bmc.extensions</groupId>
     <artifactId>bmc-logging-json-parent</artifactId>
-    <version>0.3.2-experimental</version>
+    <version>0.4.0-experimental</version>
     <packaging>pom</packaging>
 
     <name>BareMetalCode logging json parent</name>
@@ -72,7 +72,7 @@
         <surefire-plugin.version>3.5.2</surefire-plugin.version>
 
         <!-- Quarkus Config and Versions -->
-        <quarkus.version>3.19.2</quarkus.version>
+        <quarkus.version>3.21.0</quarkus.version>
 
         <!-- Versions -->
         <lombok.version>1.18.36</lombok.version>
