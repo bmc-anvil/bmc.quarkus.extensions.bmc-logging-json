@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 
 import com.bmc.extensions.loggingjson.runtime.config.properties.JsonConfig;
 import com.bmc.extensions.loggingjson.runtime.core.JsonFormatter;
+import com.bmc.extensions.loggingjson.runtime.models.StructuredLog;
 
 /**
  * Testing utilities.
@@ -14,12 +15,13 @@ public class TestUtils {
 
     private TestUtils() {}
 
-    public static JsonConfig extractJsonConfig(JsonFormatter formatter) {
+    public static JsonConfig extractJsonConfig(final JsonFormatter formatter) {
 
         try {
-            Field configField = JsonFormatter.class.getDeclaredField("jsonConfig");
-            configField.setAccessible(true);
-            return (JsonConfig) configField.get(formatter);
+            final Field structuredLogField = JsonFormatter.class.getDeclaredField("structuredLog");
+            structuredLogField.setAccessible(true);
+            final StructuredLog structuredLog = (StructuredLog) structuredLogField.get(formatter);
+            return structuredLog.getJsonConfig();
         } catch (NoSuchFieldException | IllegalAccessException e) {
             throw new RuntimeException("Could not extract JsonConfig from JsonFormatter", e);
         }

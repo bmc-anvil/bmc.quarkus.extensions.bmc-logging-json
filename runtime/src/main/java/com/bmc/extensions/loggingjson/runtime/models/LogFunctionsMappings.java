@@ -5,18 +5,17 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Function;
-import java.util.logging.Level;
 
 import com.bmc.extensions.loggingjson.runtime.utils.StructuredExceptionUtils;
 
 import org.jboss.logmanager.ExtLogRecord;
 
+import lombok.Getter;
+
 import static com.bmc.extensions.loggingjson.runtime.models.enums.LogRecordKey.*;
 import static java.util.Map.entry;
 import static java.util.Map.ofEntries;
 import static java.util.Optional.ofNullable;
-
-import lombok.Getter;
 
 /**
  * LogFunctionsMappings is responsible for providing mappings of log record keys
@@ -57,7 +56,7 @@ public class LogFunctionsMappings {
             (record, _) -> record.getThrown().getClass().getName();
     //
     private static final Function<ExtLogRecord, String>                  GET_HOSTNAME            = ExtLogRecord::getHostName;
-    private static final Function<ExtLogRecord, Level>                   GET_LEVEL               = ExtLogRecord::getLevel;
+    private static final Function<ExtLogRecord, String>                  GET_LEVEL               = record -> record.getLevel().getName();
     private static final Function<ExtLogRecord, String>                  GET_LOGGER_CLASS_NAME   = ExtLogRecord::getLoggerClassName;
     private static final Function<ExtLogRecord, String>                  GET_LOGGER_NAME         = ExtLogRecord::getLoggerName;
     private static final Function<ExtLogRecord, Map<String, String>>     GET_MDC                 = ExtLogRecord::getMdcCopy;
