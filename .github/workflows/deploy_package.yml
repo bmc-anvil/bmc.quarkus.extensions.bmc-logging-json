@@ -1,6 +1,11 @@
-name: deploy-package
+name: manual-deploy
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: "Git Tag or commit hash to deploy"
+        required: true
+        type: string
 
 jobs:
   build:
@@ -12,6 +17,35 @@ jobs:
     steps:
       - name: checkout the repository
         uses: actions/checkout@v4
+
+      - name: Fetch all tags and commits
+        run: |
+          git fetch --tags --prune
+          echo "All tags and commits fetched."
+
+      - name: Validate input version
+        id: version-validate
+        run: |
+          INPUT_VERSION="${{ github.event.inputs.version }}"
+
+          # Check if the input is a valid tag or commit hash
+          TAG_EXISTS=$(git tag --list "$INPUT_VERSION")
+          HASH_EXISTS=$(git cat-file -t "$INPUT_VERSION" 2>/dev/null || echo "")
+
+          if [ -n "$TAG_EXISTS" ]; then
+            echo "SELECTED_VERSION=$INPUT_VERSION" >> $GITHUB_ENV
+            echo "Input is a valid tag: $INPUT_VERSION"
+          elif [ "$HASH_EXISTS" == "commit" ]; then
+            echo "SELECTED_VERSION=$INPUT_VERSION" >> $GITHUB_ENV
+            echo "Input is a valid commit hash: $INPUT_VERSION"
+          else
+            echo "Error: The input is neither a valid Git tag nor a commit hash!" >&2
+            exit 1
+          fi
+
+      - name: Update Maven version
+        run: |
+          ./mvnw versions:set -DnewVersion="${{ env.SELECTED_VERSION }}"
 
       - name: Set up JDK and maven cache
         uses: actions/setup-java@v4
