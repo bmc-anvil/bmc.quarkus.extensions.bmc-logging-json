@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.bmc.extensions.loggingjson.deployment.serializers.DummyTestSerializer;
-import com.bmc.extensions.loggingjson.runtime.config.properties.ClientSerializerConfig;
-import com.bmc.extensions.loggingjson.runtime.config.properties.JsonConfig;
+import com.bmc.extensions.loggingjson.runtime.config.ClientSerializerConfig;
+import com.bmc.extensions.loggingjson.runtime.config.JsonConfig;
 import com.bmc.extensions.loggingjson.runtime.core.JsonFormatter;
 import com.bmc.extensions.loggingjson.testutils.TestUtils;
 
@@ -76,7 +76,7 @@ public class AllSupportedConfigDefaultFormatTest {
         assertEquals("+05:00", jsonConfig.logZoneId().orElseThrow());
         assertEquals("yyyy-MM-dd'T'HH:mm:ss.SSSZ", jsonConfig.logDateTimeFormat().orElseThrow());
         assertEquals(DEFAULT, jsonConfig.logFormat());
-        assertEquals(ONE_LINER, jsonConfig.exceptionDetail());
+        assertEquals(ONE_LINER, jsonConfig.exceptions().exceptionDetail());
 
         jsonConfig.excludedKeys().get().forEach(key -> assertTrue(excludedKeys.contains(key)));
 

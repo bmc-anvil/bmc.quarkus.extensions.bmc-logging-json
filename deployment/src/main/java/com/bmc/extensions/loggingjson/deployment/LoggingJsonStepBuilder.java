@@ -1,7 +1,7 @@
 package com.bmc.extensions.loggingjson.deployment;
 
 import com.bmc.extensions.loggingjson.runtime.LoggingJsonRecorder;
-import com.bmc.extensions.loggingjson.runtime.config.properties.JsonLogConfig;
+import com.bmc.extensions.loggingjson.runtime.config.JsonLogConfig;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;

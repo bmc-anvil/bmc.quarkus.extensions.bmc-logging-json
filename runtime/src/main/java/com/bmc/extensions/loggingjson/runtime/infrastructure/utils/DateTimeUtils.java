@@ -4,8 +4,8 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
-import com.bmc.extensions.loggingjson.runtime.config.properties.ClientSerializerConfig;
-import com.bmc.extensions.loggingjson.runtime.config.properties.JsonConfig;
+import com.bmc.extensions.loggingjson.runtime.config.ClientSerializerConfig;
+import com.bmc.extensions.loggingjson.runtime.config.JsonConfig;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;

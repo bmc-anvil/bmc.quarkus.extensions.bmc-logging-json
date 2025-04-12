@@ -1,4 +1,4 @@
-package com.bmc.extensions.loggingjson.runtime.config.properties;
+package com.bmc.extensions.loggingjson.runtime.config;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;

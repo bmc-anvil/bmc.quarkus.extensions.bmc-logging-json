@@ -4,13 +4,14 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import com.bmc.extensions.loggingjson.runtime.config.properties.JsonConfig;
+import com.bmc.extensions.loggingjson.runtime.config.JsonConfig;
 import com.bmc.extensions.loggingjson.runtime.models.StructuredLog;
 
 import org.jboss.logmanager.ExtLogRecord;
-import org.jboss.logmanager.formatters.StackTraceFormatter;
 
 import lombok.Getter;
+
+import static org.jboss.logmanager.formatters.StackTraceFormatter.renderStackTrace;
 
 public class StructuredExceptionUtils {
 
@@ -22,7 +23,7 @@ public class StructuredExceptionUtils {
 
         final StringBuilder writer = new StringBuilder();
         writer.append(record.getThrown().getMessage());
-        StackTraceFormatter.renderStackTrace(writer, record.getThrown(), structuredLog.getJsonConfig().exceptionSTSuppressedDepth());
+        renderStackTrace(writer, record.getThrown(), structuredLog.getJsonConfig().exceptions().exceptionSTSuppressedDepth());
         return writer.toString();
     }
 
@@ -30,9 +31,9 @@ public class StructuredExceptionUtils {
 
         final Throwable throwable = record.getThrown();
 
-        return switch (structuredLog.getJsonConfig().exceptionDetail()) {
+        return switch (structuredLog.getJsonConfig().exceptions().exceptionDetail()) {
             case ONE_LINER -> addOneLineStackTrace(throwable.getStackTrace());
-            case CML -> addCMLStackTrace(throwable.getStackTrace());
+            case CLASS_METHOD_LINE -> addCMLStackTrace(throwable.getStackTrace());
             case CLASSIC -> addClassicStackTrace(throwable, structuredLog.getJsonConfig());
             case FULL -> addFullStackTrace(throwable.getStackTrace());
             case OFF -> null;
@@ -64,7 +65,7 @@ public class StructuredExceptionUtils {
     private static String addClassicStackTrace(final Throwable throwable, final JsonConfig jsonConfig) {
 
         final StringBuilder writer = new StringBuilder();
-        StackTraceFormatter.renderStackTrace(writer, throwable, jsonConfig.exceptionSTSuppressedDepth());
+        renderStackTrace(writer, throwable, jsonConfig.exceptions().exceptionSTSuppressedDepth());
         return writer.toString();
     }
 

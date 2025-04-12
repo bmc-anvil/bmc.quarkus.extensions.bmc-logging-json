@@ -3,8 +3,8 @@ package com.bmc.extensions.loggingjson.runtime;
 import java.util.Optional;
 import java.util.logging.Formatter;
 
-import com.bmc.extensions.loggingjson.runtime.config.properties.JsonConfig;
-import com.bmc.extensions.loggingjson.runtime.config.properties.JsonLogConfig;
+import com.bmc.extensions.loggingjson.runtime.config.JsonConfig;
+import com.bmc.extensions.loggingjson.runtime.config.JsonLogConfig;
 import com.bmc.extensions.loggingjson.runtime.core.JsonFormatter;
 import com.bmc.extensions.loggingjson.runtime.models.StructuredLog;
 import com.bmc.extensions.loggingjson.runtime.models.enums.LogOutput;

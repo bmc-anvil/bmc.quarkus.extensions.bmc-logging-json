@@ -1,6 +1,6 @@
 package com.bmc.extensions.loggingjson.runtime.models.factory;
 
-import com.bmc.extensions.loggingjson.runtime.config.properties.JsonConfig;
+import com.bmc.extensions.loggingjson.runtime.config.JsonConfig;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

@@ -1,4 +1,4 @@
-package com.bmc.extensions.loggingjson.runtime.config.properties;
+package com.bmc.extensions.loggingjson.runtime.config;
 
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.Temporal;
@@ -7,7 +7,6 @@ import java.util.Optional;
 import java.util.Set;
 
 import com.bmc.extensions.loggingjson.runtime.models.enums.LogFormat;
-import com.bmc.extensions.loggingjson.runtime.models.enums.StackTraceDetail;
 
 import io.quarkus.runtime.annotations.ConfigDocMapKey;
 import io.quarkus.runtime.annotations.ConfigGroup;
@@ -34,7 +33,7 @@ public interface JsonConfig {
     Map<String, String> additionalFieldsWrapped();
 
     /**
-     * Custom Serializers that will apply to the client application and not to the log itself
+     * Custom Serializers that will apply to the client application and not to the log itself.
      * These serializers will target the rendering inside the message field
      */
     ClientSerializerConfig clientSerializers();
@@ -46,33 +45,9 @@ public interface JsonConfig {
     boolean enable();
 
     /**
-     * The detail in which exception {@link StackTraceElement} will be printed inside the exception field.<br>
-     * defaults to {@link StackTraceDetail#ONE_LINER}.
-     * <p>
-     * Options are:
-     * <p>
-     * {@link StackTraceDetail#ONE_LINER}: each element is printed in a single line.<br>
-     * {@link StackTraceDetail#CML}: each element is printed as an entry showing Class-Method-Line info.<br>
-     * {@link StackTraceDetail#FULL}: each element is printed as an entry with all available info.<br>
-     * {@link StackTraceDetail#OFF}: no stack trace information is printed at all.<br>
+     * Configuration for handling Exceptions output.
      */
-    @WithDefault("ONE_LINER")
-    StackTraceDetail exceptionDetail();
-
-    /**
-     * Depth of the Suppressed StackTrace to print if any is present.
-     * <p>
-     * Defaults to 0
-     */
-    @WithDefault("0")
-    int exceptionSTSuppressedDepth();
-
-    /**
-     * Controls if the stacktrace is shown as a separate field<br>
-     * defaults to {@code true}
-     */
-    @WithDefault("true")
-    boolean exceptionStackTraceAsTopField();
+    ExceptionConfig exceptions();
 
     /**
      * Keys to be excluded from the JSON output.

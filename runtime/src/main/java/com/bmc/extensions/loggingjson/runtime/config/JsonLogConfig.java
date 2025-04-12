@@ -1,4 +1,4 @@
-package com.bmc.extensions.loggingjson.runtime.config.properties;
+package com.bmc.extensions.loggingjson.runtime.config;
 
 import io.quarkus.runtime.annotations.ConfigDocSection;
 import io.quarkus.runtime.annotations.ConfigRoot;

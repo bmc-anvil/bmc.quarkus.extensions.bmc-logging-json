@@ -16,7 +16,7 @@ public enum StackTraceDetail {
     /**
      * Each element is printed as an entry showing Class-Method-Line info.
      */
-    CML,
+    CLASS_METHOD_LINE,
     /**
      * Classic formatting of stackTrace as per {@link StackTraceFormatter}
      */

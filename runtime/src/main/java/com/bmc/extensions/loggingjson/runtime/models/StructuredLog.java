@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-import com.bmc.extensions.loggingjson.runtime.config.properties.JsonConfig;
+import com.bmc.extensions.loggingjson.runtime.config.JsonConfig;
 import com.bmc.extensions.loggingjson.runtime.models.enums.LogRecordKey;
 
 import org.jboss.logmanager.ExtLogRecord;

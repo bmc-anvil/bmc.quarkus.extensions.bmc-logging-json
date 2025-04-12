@@ -2,7 +2,7 @@ package com.bmc.extensions.loggingjson.testutils;
 
 import java.lang.reflect.Field;
 
-import com.bmc.extensions.loggingjson.runtime.config.properties.JsonConfig;
+import com.bmc.extensions.loggingjson.runtime.config.JsonConfig;
 import com.bmc.extensions.loggingjson.runtime.core.JsonFormatter;
 import com.bmc.extensions.loggingjson.runtime.models.StructuredLog;
 

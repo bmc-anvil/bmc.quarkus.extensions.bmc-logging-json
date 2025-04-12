@@ -2,8 +2,8 @@ package com.bmc.extensions.loggingjson.deployment.config;
 
 import java.util.Arrays;
 
-import com.bmc.extensions.loggingjson.runtime.config.properties.ClientSerializerConfig;
-import com.bmc.extensions.loggingjson.runtime.config.properties.JsonConfig;
+import com.bmc.extensions.loggingjson.runtime.config.ClientSerializerConfig;
+import com.bmc.extensions.loggingjson.runtime.config.JsonConfig;
 import com.bmc.extensions.loggingjson.runtime.core.JsonFormatter;
 import com.bmc.extensions.loggingjson.testutils.TestUtils;
 
@@ -77,7 +77,7 @@ public class AllSupportedNoConfigTest {
         assertTrue(clientSerializer.zonedDateTimeFormat().isEmpty());
 
         assertEquals(DEFAULT, jsonConfig.logFormat());
-        assertEquals(ONE_LINER, jsonConfig.exceptionDetail());
+        assertEquals(ONE_LINER, jsonConfig.exceptions().exceptionDetail());
 
         assertFalse(jsonConfig.prettyPrint());
         assertFalse(jsonConfig.printDetails());

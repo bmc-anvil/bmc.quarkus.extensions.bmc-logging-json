@@ -3,7 +3,7 @@ package com.bmc.extensions.loggingjson.runtime.infrastructure.serializers;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
-import com.bmc.extensions.loggingjson.runtime.config.properties.JsonConfig;
+import com.bmc.extensions.loggingjson.runtime.config.JsonConfig;
 import com.bmc.extensions.loggingjson.runtime.infrastructure.utils.DateTimeUtils;
 
 /**

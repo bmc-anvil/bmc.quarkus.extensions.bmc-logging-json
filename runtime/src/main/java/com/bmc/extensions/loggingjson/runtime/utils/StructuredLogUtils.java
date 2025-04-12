@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 
-import com.bmc.extensions.loggingjson.runtime.config.properties.JsonConfig;
+import com.bmc.extensions.loggingjson.runtime.config.JsonConfig;
 import com.bmc.extensions.loggingjson.runtime.models.StructuredLog;
 import com.bmc.extensions.loggingjson.runtime.models.enums.LogFormat;
 import com.bmc.extensions.loggingjson.runtime.models.enums.LogRecordKeyECS;

@@ -10,7 +10,7 @@ import java.time.temporal.TemporalAccessor;
 import java.util.*;
 
 import com.bmc.extensions.loggingjson.deployment.serializers.DummyTestSerializer;
-import com.bmc.extensions.loggingjson.runtime.config.properties.JsonConfig;
+import com.bmc.extensions.loggingjson.runtime.config.JsonConfig;
 import com.bmc.extensions.loggingjson.runtime.core.JsonFormatter;
 import com.bmc.extensions.loggingjson.runtime.models.StructuredLogArgument;
 import com.bmc.extensions.loggingjson.testutils.DummyAddressPOJO;
@@ -30,7 +30,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static com.bmc.extensions.loggingjson.runtime.models.KV.of;
+import static com.bmc.extensions.loggingjson.runtime.models.KeyValue.of;
 import static com.bmc.extensions.loggingjson.runtime.models.StructuredLogArgument.logEntry;
 import static com.bmc.extensions.loggingjson.testutils.TestUtils.extractJsonConfig;
 import static io.quarkus.bootstrap.logging.InitialConfigurator.DELAYED_HANDLER;

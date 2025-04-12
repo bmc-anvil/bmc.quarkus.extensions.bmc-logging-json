@@ -13,11 +13,10 @@ import io.quarkus.test.QuarkusUnitTest;
 
 import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-import static com.bmc.extensions.loggingjson.runtime.models.KV.of;
+import static com.bmc.extensions.loggingjson.runtime.models.KeyValue.of;
 import static com.bmc.extensions.loggingjson.runtime.models.StructuredLogArgument.logEntry;
 
 /**
@@ -59,18 +58,28 @@ public class LauncherTest {
 
     }
 
-    @RepeatedTest(5000)
+    @Test
     @Disabled
     public void testStructureNew() {
 
-        StructuredLogArgument structuredLogArgument =
+        final StructuredLogArgument structuredLogArgument =
                 logEntry(of("TestStructure", testingJson),
                          of("secondEntry", "second"),
                          of("third Entry time", Instant.now()),
                          of("Forth Entry Map in map", Map.of("key", "value", "key2", "value2", "key3", "value3")));
 
-        //        logger.infof("respect sort on message", structuredLogArgument);
-        logger.infof("", structuredLogArgument);
+        final StructuredLogArgument structuredLogArgumentSmall = logEntry(of("TestStructure", testingJson));
+
+        long startTime = System.nanoTime();
+
+        for (int i = 0; i < 50000; i++) {
+            logger.infof("", structuredLogArgumentSmall);
+        }
+
+        long endTime  = System.nanoTime();
+        long duration = (endTime - startTime) / 1_000_000; // Convert to milliseconds
+
+        logger.warn("Test 'testStructureNew' execution time: " + duration + " ms");
     }
 
     public static class testingJson {

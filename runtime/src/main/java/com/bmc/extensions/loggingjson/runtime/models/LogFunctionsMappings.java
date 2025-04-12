@@ -118,7 +118,7 @@ public class LogFunctionsMappings {
      * <p>
      * The key rule is to determine if we have a single parameter and if it is a {@link StructuredLogArgument}.
      * In the constructed JSON, the message part, if not empty, will appear as an inner field within the message field itself and
-     * the {@link KV} entry/es will be printed in the message field as individual sub entries.
+     * the {@link KeyValue} entry/es will be printed in the message field as individual sub entries.
      * <p>
      * example:<br>
      * <pre>

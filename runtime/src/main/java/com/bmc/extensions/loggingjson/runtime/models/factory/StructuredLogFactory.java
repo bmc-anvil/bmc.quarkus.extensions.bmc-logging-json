@@ -2,8 +2,8 @@ package com.bmc.extensions.loggingjson.runtime.models.factory;
 
 import java.util.function.Function;
 
-import com.bmc.extensions.loggingjson.runtime.config.properties.JsonConfig;
-import com.bmc.extensions.loggingjson.runtime.config.properties.JsonLogConfig;
+import com.bmc.extensions.loggingjson.runtime.config.JsonConfig;
+import com.bmc.extensions.loggingjson.runtime.config.JsonLogConfig;
 import com.bmc.extensions.loggingjson.runtime.core.JsonFormatter;
 import com.bmc.extensions.loggingjson.runtime.models.LogFunctionsMappings;
 import com.bmc.extensions.loggingjson.runtime.models.StructuredLog;
