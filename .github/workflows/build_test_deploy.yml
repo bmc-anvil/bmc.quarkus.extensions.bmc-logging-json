@@ -7,7 +7,7 @@ on:
     branches: [ "master" ]
 
 jobs:
-  build:
+  build-test-deploy:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -49,3 +49,8 @@ jobs:
       - name: Update Maven version with Git tag or hash
         run: |
           ./mvnw versions:set -DnewVersion="${{ env.PROJECT_VERSION }}"
+
+      - name: Publish to Github Packages
+        run: ./mvnw deploy -DskipTests -Dmaven.source.skip=false -Dmaven.javadoc.skip=false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
