@@ -41,4 +41,5 @@ public interface ExceptionConfig {
      */
     @WithDefault("true")
     boolean exceptionStackTraceAsTopField();
+
 }

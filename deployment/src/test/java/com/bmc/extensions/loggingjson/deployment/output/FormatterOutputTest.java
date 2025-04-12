@@ -68,22 +68,22 @@ public class FormatterOutputTest {
     final        Map<String, String> mdc                     = Map.of("mdcKey_01", "mdcValue_01", "mdcKey_02", "mdcValue_02");
     final        String              ndc                     = "Dummy NDC String";
     final        Map<String, Object> expectedKeys            = new LinkedHashMap<>(ofEntries(entry("level", level),
-                                                                                       entry("additionalFields", additionalFieldsWrapped),
-                                                                                       entry("loggerClassName", loggerClassName),
-                                                                                       entry("foo", "bar"),
-                                                                                       entry("bar", "baz"),
-                                                                                       entry("ndc", ndc),
-                                                                                       entry("mdc", mdc),
-                                                                                       entry("threadName", ""),
-                                                                                       entry("threadId", "Dummy Serializer Long Value:"),
-                                                                                       entry("sequence", "Dummy Serializer Long Value:"),
-                                                                                       entry("hostname", getHostName()),
-                                                                                       entry("processId", "Dummy Serializer Long Value:"),
-                                                                                       entry("processName", ""),
-                                                                                       entry("message", ""),
-                                                                                       entry("details", ""),
-                                                                                       entry("loggerName", loggerName),
-                                                                                       entry("timestamp", "")));
+                                                                                             entry("additionalFields", additionalFieldsWrapped),
+                                                                                             entry("loggerClassName", loggerClassName),
+                                                                                             entry("foo", "bar"),
+                                                                                             entry("bar", "baz"),
+                                                                                             entry("ndc", ndc),
+                                                                                             entry("mdc", mdc),
+                                                                                             entry("threadName", ""),
+                                                                                             entry("threadId", "Dummy Serializer Long Value:"),
+                                                                                             entry("sequence", "Dummy Serializer Long Value:"),
+                                                                                             entry("hostname", getHostName()),
+                                                                                             entry("processId", "Dummy Serializer Long Value:"),
+                                                                                             entry("processName", ""),
+                                                                                             entry("message", ""),
+                                                                                             entry("details", ""),
+                                                                                             entry("loggerName", loggerName),
+                                                                                             entry("timestamp", "")));
 
     @BeforeAll
     static void setup() {
