@@ -6,11 +6,12 @@
     <parent>
         <groupId>com.bmc.extensions</groupId>
         <artifactId>bmc-logging-json-parent</artifactId>
-        <version>0.4.0-experimental</version>
+        <version>0.0.1-local</version>
     </parent>
 
     <artifactId>bmc-logging-json-deployment</artifactId>
     <name>BareMetalCode logging json deployment</name>
+    <description>Quarkus extension for configurable structured JSON Logging - Deployment Module</description>
 
     <dependencies>
         <!-- Runtime Module for this extension -->
@@ -50,6 +51,7 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
             </plugin>
         </plugins>

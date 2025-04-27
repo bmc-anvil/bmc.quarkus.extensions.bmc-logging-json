@@ -31,8 +31,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public final class MavenWrapperDownloader {
 
-    private static final boolean VERBOSE = Boolean.parseBoolean(System.getenv("MVNW_VERBOSE"));
-    private static final String WRAPPER_VERSION = "3.3.2";
+    private static final boolean VERBOSE         = Boolean.parseBoolean(System.getenv("MVNW_VERBOSE"));
+    private static final String  WRAPPER_VERSION = "3.3.2";
 
     public static void main(String[] args) {
 

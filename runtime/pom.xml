@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.bmc.extensions</groupId>
         <artifactId>bmc-logging-json-parent</artifactId>
-        <version>0.4.0-experimental</version>
+        <version>0.0.1-local</version>
     </parent>
 
     <artifactId>bmc-logging-json</artifactId>
@@ -33,7 +33,7 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-extension-processor</artifactId>
-            <version>${quarkus.version}</version>
+            <version>${quarkus.platform.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -48,7 +48,7 @@
             <plugin>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-extension-maven-plugin</artifactId>
-                <version>${quarkus.version}</version>
+                <version>${quarkus.platform.version}</version>
                 <executions>
                     <execution>
                         <phase>compile</phase>
@@ -63,6 +63,7 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
             </plugin>
             <plugin>
