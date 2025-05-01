@@ -1,0 +1,26 @@
+name: 'Setup Java'
+description: 'Download OpenJDK and set up Java'
+
+outputs:
+  java-path:
+    description: 'Path to the Java installation'
+    value: ${{ steps.setup-java.outputs.path }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: download OpenJDK
+      id: download-openjdk
+      shell: bash
+      run: |
+        download_url="https://download.java.net/java/GA/jdk23.0.2/6da2a6609d6e406f85c491fcb119101b/7/GPL/openjdk-23.0.2_linux-x64_bin.tar.gz"
+        wget -O $RUNNER_TEMP/java_package.tar.gz $download_url
+
+    - name: Set up JDK
+      id: setup-java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'jdkfile'
+        jdkFile: ${{ runner.temp }}/java_package.tar.gz
+        java-version: '23.0.2'
+        architecture: x64

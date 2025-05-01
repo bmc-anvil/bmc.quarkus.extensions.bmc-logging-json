@@ -43,15 +43,8 @@ jobs:
                       exit 1
                     fi
 
-            -   name: Update Maven version
-                run: |
-                    ./mvnw versions:set -DnewVersion="${{ env.SELECTED_VERSION }}"
-
-            -   name: Set up JDK and maven cache
-                uses: actions/setup-java@v4
-                with:
-                    java-version: '23'
-                    distribution: "temurin"
+            -   name: Setup Java
+                uses: ./.github/actions/setup-java
 
             -   name: Cache Maven dependencies
                 uses: actions/cache@v4
@@ -64,6 +57,10 @@ jobs:
             -   name: build and test
                 continue-on-error: true
                 run: ./mvnw clean verify
+
+            -   name: Update Maven version
+                run: |
+                    ./mvnw versions:set -DnewVersion="${{ env.SELECTED_VERSION }}"
 
             -   name: Publish to Github Packages
                 run: ./mvnw deploy -DskipTests -Dmaven.source.skip=false -Dmaven.javadoc.skip=false
