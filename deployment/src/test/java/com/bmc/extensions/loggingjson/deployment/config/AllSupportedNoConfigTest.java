@@ -38,7 +38,7 @@ public class AllSupportedNoConfigTest {
 
         final QuarkusDelayedHandler delayedHandler = InitialConfigurator.DELAYED_HANDLER;
 
-        int[] handlerCounter = Arrays.stream(delayedHandler.getHandlers()).reduce(new int[]{0, 0}, (accumulator, handler) -> {
+        final int[] handlerCounter = Arrays.stream(delayedHandler.getHandlers()).reduce(new int[]{0, 0}, (accumulator, handler) -> {
             if (handler instanceof ConsoleHandler) {
                 accumulator[0]++;
                 final JsonFormatter formatter = (JsonFormatter) handler.getFormatter();
@@ -50,8 +50,8 @@ public class AllSupportedNoConfigTest {
             return accumulator;
         }, (a, b) -> new int[]{a[0] + b[0], a[1] + b[1]});
 
-        int countConsoleHandlers = handlerCounter[0];
-        int countFileHandlers    = handlerCounter[1];
+        final int countConsoleHandlers = handlerCounter[0];
+        final int countFileHandlers    = handlerCounter[1];
 
         assertEquals(1, countConsoleHandlers);
         assertEquals(0, countFileHandlers);

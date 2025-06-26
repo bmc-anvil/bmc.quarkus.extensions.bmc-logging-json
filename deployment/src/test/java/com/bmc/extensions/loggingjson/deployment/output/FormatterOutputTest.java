@@ -40,7 +40,7 @@ import static org.jboss.logmanager.Level.INFO;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Testing the format itself produces the expected output
+ * Testing the format itself produces the expected output.
  *
  * @author BareMetalCode
  */
@@ -108,7 +108,7 @@ public class FormatterOutputTest {
     }
 
     /**
-     * FIxME: add message tag testing
+     * FIxME: add message tag testing.
      */
     @ParameterizedTest
     @ValueSource(strings = {"", "   ", "test message to appear in message tag"})
@@ -223,7 +223,7 @@ public class FormatterOutputTest {
 
         try {
             return InetAddress.getLocalHost().getHostName();
-        } catch (UnknownHostException e) {
+        } catch (final UnknownHostException e) {
             throw new RuntimeException(e);
         }
     }

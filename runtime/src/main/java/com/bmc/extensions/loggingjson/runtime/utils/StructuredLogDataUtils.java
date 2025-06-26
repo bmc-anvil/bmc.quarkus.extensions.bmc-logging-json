@@ -25,18 +25,45 @@ public class StructuredLogDataUtils {
 
     }
 
+    /**
+     * Populates additional fields into the fields to render if any are present in the given structured log.
+     * <p>
+     * Fields can be rendered at top-level or wrapped together into a single field called "additionalFields" depending on configuration options.
+     *
+     * @param structuredLog  the structured log containing additional fields to be populated. May contain top-level or wrapped additional fields
+     * @param fieldsToRender the map where the additional fields from the structured log will be added
+     */
     public static void populateAdditionalFieldsIfPresent(final StructuredLog structuredLog, final Map<String, Object> fieldsToRender) {
 
         ofNullable(structuredLog.getAdditionalFieldsTop()).ifPresent(fieldsToRender::putAll);
         ofNullable(structuredLog.getAdditionalFieldsWrapped()).ifPresent(fields -> fieldsToRender.put("additionalFields", fields));
     }
 
+    /**
+     * Populates core fields into the provided map of fields to render.
+     *
+     * @param record         the log record from which core fields will be extracted
+     * @param structuredLog  the structured log configuration containing the core record mapping
+     * @param fieldsToRender the map where the core fields extracted from the log record will be added
+     */
     public static void populateCoreFields(final ExtLogRecord record, final StructuredLog structuredLog,
             final Map<String, Object> fieldsToRender) {
 
         fieldsToRender.putAll(extractDataFromRecord(record, structuredLog.getCoreRecordMapping()));
     }
 
+    /**
+     * Populates detailed fields into the specified map of fields to render if the structured log configuration
+     * is enabled to print details.
+     * <p>
+     * If enabled, it extracts additional details from the given log record using the details mapping configuration
+     * provided by the structured log and adds them to the map of fields to render wrapped under the key "details".
+     *
+     * @param record         the log record from which detailed fields are extracted
+     * @param structuredLog  the structured log configuration containing the details mapping and settings
+     * @param fieldsToRender the map where the extracted detailed fields will be added if the "printDetails"
+     *                       configuration is enabled
+     */
     public static void populateDetailsIfEnabled(final ExtLogRecord record, final StructuredLog structuredLog,
             final Map<String, Object> fieldsToRender) {
 
@@ -45,6 +72,16 @@ public class StructuredLogDataUtils {
         }
     }
 
+    /**
+     * Populates exception-related fields if an exception is present in the given {@link ExtLogRecord}.
+     * <p>
+     * If the structured log is configured to print a classic stack trace, the method also adds corresponding
+     * fields for the stack trace.
+     *
+     * @param record         the log record containing the exception to be processed
+     * @param structuredLog  the structured log containing mappings and configurations for exception handling
+     * @param fieldsToRender the map where extracted exception-related fields will be added
+     */
     public static void populateExceptionIfPresent(final ExtLogRecord record, final StructuredLog structuredLog,
             final Map<String, Object> fieldsToRender) {
 

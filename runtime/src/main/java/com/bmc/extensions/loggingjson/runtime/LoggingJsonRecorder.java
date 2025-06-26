@@ -28,6 +28,17 @@ import static java.util.Optional.of;
 @Recorder
 public class LoggingJsonRecorder {
 
+    /**
+     * Creates a JSON formatter for the specified log output type based on the given JSON log configuration to inject into the Quarkus Extension.
+     * <p>
+     * This is the entry point for creating and configuring the JSON Logger Extension.
+     *
+     * @param jsonLogConfig the JSON log configuration, containing specific settings for file and console log outputs
+     * @param logOutput     the output type for which the JSON formatter is requested (e.g., console, file, etc.)
+     *
+     * @return a {@link RuntimeValue} containing an {@link Optional} JSON {@link Formatter}.
+     * The optional will contain a formatter if JSON logging is enabled for the specified output; otherwise, it will be empty.
+     */
     public RuntimeValue<Optional<Formatter>> getJsonFormatterForLogOutputType(final JsonLogConfig jsonLogConfig, final LogOutput logOutput) {
 
         return switch (logOutput) {

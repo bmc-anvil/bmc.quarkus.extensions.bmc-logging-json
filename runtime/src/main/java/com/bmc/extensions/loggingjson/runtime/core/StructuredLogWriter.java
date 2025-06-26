@@ -19,6 +19,17 @@ public class StructuredLogWriter {
 
     private static final String NEW_LINE = System.lineSeparator();
 
+    /**
+     * Formats the provided map of fields to render into a JSON record as a string, using the specified JSON factory and configuration.
+     *
+     * @param fieldsToRender a map of keys and values representing the fields to include in the JSON record
+     * @param jsonFactory    the factory used to create a JSON generator for formatting the output
+     * @param jsonConfig     the configuration object specifying formatting options, such as pretty printing and delimiters
+     *
+     * @return the formatted JSON record as a string
+     *
+     * @throws RuntimeException if an I/O operation or any other runtime error occurs during formatting
+     */
     public static String formatRecord(final Map<String, Object> fieldsToRender, final JsonFactory jsonFactory, final JsonConfig jsonConfig) {
 
         final ByteArrayOutputStream writer = new ByteArrayOutputStream();
@@ -33,7 +44,7 @@ public class StructuredLogWriter {
             generator.flush();
 
             return writer.toString();
-        } catch (RuntimeException | IOException e) {
+        } catch (final RuntimeException | IOException e) {
             throw new RuntimeException(e);
         }
 

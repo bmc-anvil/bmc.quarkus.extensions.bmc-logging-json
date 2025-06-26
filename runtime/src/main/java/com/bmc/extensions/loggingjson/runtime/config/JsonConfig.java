@@ -74,7 +74,7 @@ public interface JsonConfig {
     Optional<String> logDateTimeFormat();
 
     /**
-     * Specify the format of the produced JSON
+     * Specify the format of the produced JSON.
      */
     @WithDefault("DEFAULT")
     LogFormat logFormat();

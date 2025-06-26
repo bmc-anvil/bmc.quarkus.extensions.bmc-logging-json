@@ -18,7 +18,7 @@ public enum StackTraceDetail {
      */
     CLASS_METHOD_LINE,
     /**
-     * Classic formatting of stackTrace as per {@link StackTraceFormatter}
+     * Classic formatting of stackTrace as per {@link StackTraceFormatter}.
      */
     CLASSIC,
     /**

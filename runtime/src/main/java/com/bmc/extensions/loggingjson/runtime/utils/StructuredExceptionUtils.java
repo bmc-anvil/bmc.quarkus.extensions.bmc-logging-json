@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.bmc.extensions.loggingjson.runtime.config.JsonConfig;
 import com.bmc.extensions.loggingjson.runtime.models.StructuredLog;
+import com.bmc.extensions.loggingjson.runtime.models.enums.StackTraceDetail;
 
 import org.jboss.logmanager.ExtLogRecord;
 
@@ -13,12 +14,23 @@ import lombok.Getter;
 
 import static org.jboss.logmanager.formatters.StackTraceFormatter.renderStackTrace;
 
+/**
+ * Utility class for formatting structured exception data.
+ */
 public class StructuredExceptionUtils {
 
     private StructuredExceptionUtils() {
 
     }
 
+    /**
+     * Generates a classic java stack trace from the provided log record and structured log configuration.
+     *
+     * @param record        the {@link ExtLogRecord} containing the exception details to be rendered
+     * @param structuredLog the {@link StructuredLog} containing configuration for rendering the stack trace
+     *
+     * @return a string representation of the classic stack trace
+     */
     public static String printClassicStackTrace(final ExtLogRecord record, final StructuredLog structuredLog) {
 
         final StringBuilder writer = new StringBuilder();
@@ -27,6 +39,18 @@ public class StructuredExceptionUtils {
         return writer.toString();
     }
 
+    /**
+     * Processes and prints the stack trace information from the given log record based on the stack trace detail configuration
+     * provided in the structured log.
+     * <p>
+     *
+     * @param record        the {@link ExtLogRecord} containing the exception details, including the stack trace
+     * @param structuredLog the {@link StructuredLog} containing the JSON configuration that specifies how the stack trace should be rendered
+     *
+     * @return an object representing the formatted stack trace, or {@code null} if the stack trace output is turned off
+     *
+     * @see StackTraceDetail
+     */
     public static Object printInnerStackTrace(final ExtLogRecord record, final StructuredLog structuredLog) {
 
         final Throwable throwable = record.getThrown();
@@ -40,6 +64,15 @@ public class StructuredExceptionUtils {
         };
     }
 
+    /**
+     * Processes the inner exception details from the provided log record and structured log configuration
+     * into a structured map containing key-value pairs based on the exception inner mapping.
+     *
+     * @param record        the {@code ExtLogRecord} containing the exception details
+     * @param structuredLog the {@code StructuredLog} containing the configuration mapping for extracting exception details
+     *
+     * @return a map where the keys are the configured mappings and the values are the extracted data based on the log record
+     */
     public static Map<String, Object> printStructuredException(final ExtLogRecord record, final StructuredLog structuredLog) {
 
         final Map<String, Object> map = new LinkedHashMap<>();
@@ -81,12 +114,17 @@ public class StructuredExceptionUtils {
                      .toList();
     }
 
+    /**
+     * CML stands for ClassMethodLine.
+     * <p>
+     * It encapsulates metadata about a specific code location, such as the class name, line number, and method name.
+     */
     @Getter
     public static class CML {
 
-        String className;
-        int    line;
-        String method;
+        private String className;
+        private int    line;
+        private String method;
 
     }
 

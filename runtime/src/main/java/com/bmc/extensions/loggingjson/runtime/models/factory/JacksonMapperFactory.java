@@ -27,6 +27,17 @@ public class JacksonMapperFactory {
 
     private JacksonMapperFactory() {}
 
+    /**
+     * Creates and configures a Jackson {@link JsonFactory} instance based on the provided {@link JsonConfig}.
+     * <p>
+     * The configuration includes disabling the use of timestamps for dates, setting non-null serialization inclusion,
+     * registering custom modules for Java Time types, and adding any custom serializers defined in the configuration.
+     *
+     * @param jsonConfig the configuration for structuring JSON output, including options for custom serializers,
+     *                   date-time formats, etc.
+     *
+     * @return a configured {@link JsonFactory} ready to produce JSON output with the specified settings.
+     */
     public static JsonFactory getJacksonJSONFactory(final JsonConfig jsonConfig) {
 
         final ObjectMapper mapper = new ObjectMapper();

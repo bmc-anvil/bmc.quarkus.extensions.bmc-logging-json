@@ -32,12 +32,13 @@ public class LauncherTest {
             .withConfigurationResource("application-launcher.properties");
 
     private static final Logger      logger      = Logger.getLogger("JBOSS");
-    private static final testingJson testingJson = new testingJson();
+    private static final TestingJson testingJson = new TestingJson();
+
     static {
         testingJson.name     = "test";
         testingJson.lastName = "Last test";
 
-        testingJsonInner inner = new testingJsonInner();
+        final TestingJsonInner inner = new TestingJsonInner();
         inner.innerName     = "inner test";
         inner.innerLastName = Arrays.asList("testing", "the list", "1", "two", "more");
 
@@ -49,10 +50,10 @@ public class LauncherTest {
     public void exceptionFormattingTest() {
 
         try {
-            BigInteger one   = new BigInteger("1");
-            BigInteger two   = new BigInteger("0");
-            BigInteger three = one.divide(two);
-        } catch (Exception e) {
+            final BigInteger one   = new BigInteger("1");
+            final BigInteger two   = new BigInteger("0");
+            final BigInteger three = one.divide(two);
+        } catch (final Exception e) {
             logger.error("boom exception thrown", new InvalidClassException("and it was", e));
         }
 
@@ -70,39 +71,45 @@ public class LauncherTest {
 
         final StructuredLogArgument structuredLogArgumentSmall = logEntry(of("TestStructure", testingJson));
 
-        long startTime = System.nanoTime();
+        final long startTime = System.nanoTime();
 
-        for (int i = 0; i < 50000; i++) {
+        for (int i = 0; i < 1000; i++) {
             logger.infof("", structuredLogArgumentSmall);
         }
 
-        long endTime  = System.nanoTime();
-        long duration = (endTime - startTime) / 1_000_000; // Convert to milliseconds
+        final long endTime  = System.nanoTime();
+        final long duration = (endTime - startTime) / 1_000_000; // Convert to milliseconds
 
         logger.warn("Test 'testStructureNew' execution time: " + duration + " ms");
     }
 
-    public static class testingJson {
+    /**
+     * Testing inner class.
+     */
+    public static class TestingJson {
 
-        public testingJsonInner         inner;
+        public TestingJsonInner         inner;
         public String                   lastName;
         public String                   name;
-        public testingJsonInnerTemporal temporal = new testingJsonInnerTemporal();
+        public TestingJsonInnerTemporal temporal = new TestingJsonInnerTemporal();
 
         @Override
         public String toString() {
 
-            return "testingJson{" +
-                   ", inner=" + inner +
-                   ", lastName='" + lastName + '\'' +
-                   ", name='" + name + '\'' +
-                   ", temporal=" + temporal +
-                   '}';
+            return "testingJson{"
+                   + ", inner=" + inner
+                   + ", lastName='" + lastName + '\''
+                   + ", name='" + name + '\''
+                   + ", temporal=" + temporal
+                   + '}';
         }
 
     }
 
-    public static class testingJsonInnerTemporal {
+    /**
+     * Testing inner class.
+     */
+    public static class TestingJsonInnerTemporal {
 
         public Instant       instant       = Instant.now();
         public LocalDate     localDate     = LocalDate.now();
@@ -113,18 +120,21 @@ public class LauncherTest {
         @Override
         public String toString() {
 
-            return "testingJsonInnerTemporal{" +
-                   "instant=" + instant +
-                   ", localDate=" + localDate +
-                   ", localDateTime=" + localDateTime +
-                   ", localTime=" + localTime +
-                   ", zonedDateTime=" + zonedDateTime +
-                   '}';
+            return "testingJsonInnerTemporal{"
+                   + "instant=" + instant
+                   + ", localDate=" + localDate
+                   + ", localDateTime=" + localDateTime
+                   + ", localTime=" + localTime
+                   + ", zonedDateTime=" + zonedDateTime
+                   + '}';
         }
 
     }
 
-    public static class testingJsonInner {
+    /**
+     * Testing inner class.
+     */
+    public static class TestingJsonInner {
 
         public List<String> innerLastName;
         public String       innerName;
@@ -132,10 +142,10 @@ public class LauncherTest {
         @Override
         public String toString() {
 
-            return "testingJsonInner{" +
-                   "innerLastName=" + innerLastName +
-                   ", innerName='" + innerName + '\'' +
-                   '}';
+            return "testingJsonInner{"
+                   + "innerLastName=" + innerLastName
+                   + ", innerName='" + innerName + '\''
+                   + '}';
         }
 
     }

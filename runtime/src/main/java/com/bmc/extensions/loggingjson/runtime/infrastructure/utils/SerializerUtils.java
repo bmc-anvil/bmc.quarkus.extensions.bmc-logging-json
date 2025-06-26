@@ -31,6 +31,18 @@ public class SerializerUtils {
 
     private SerializerUtils() {}
 
+    /**
+     * Registers custom serializers, if any are defined, to the provided {@link ObjectMapper} instance.
+     * <br>
+     * This method retrieves the custom serializers from the provided {@link JsonConfig}, dynamically loads them into
+     * a {@link SimpleModule}, and registers the module with the given {@link ObjectMapper}.
+     * <br>
+     * Note: The custom serializers must be fully qualified class names of classes that extend {@link JsonSerializer}
+     * and must have a no-argument constructor.
+     *
+     * @param jsonConfig the configuration source containing client-defined custom serializers
+     * @param mapper the {@link ObjectMapper} instance to which the custom serializers will be registered
+     */
     public static void addCustomSerializersIfAny(final JsonConfig jsonConfig, final ObjectMapper mapper) {
 
         final Map<String, String> customSerializers = jsonConfig.clientSerializers().customSerializers();
@@ -59,10 +71,10 @@ public class SerializerUtils {
 
             module.addSerializer(serializerType, constructor.newInstance());
 
-        } catch (Exception e) {
+        } catch (final Exception e) {
             // FIXME: decide to fail or report...
-            System.err.printf("Failure Loading custom serializer [%s].\n" +
-                              "Be sure to use the full class name including the package for your custom serializer.", serializerName);
+            System.err.printf("Failure Loading custom serializer [%s].\n"
+                              + "Be sure to use the full class name including the package for your custom serializer.", serializerName);
         }
     }
 

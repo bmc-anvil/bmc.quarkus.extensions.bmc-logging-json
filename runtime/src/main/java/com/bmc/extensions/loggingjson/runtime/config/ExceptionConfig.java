@@ -6,7 +6,7 @@ import io.quarkus.runtime.annotations.ConfigGroup;
 import io.smallrye.config.WithDefault;
 
 /**
- * Exception Configuration Section
+ * Exception Configuration Section.
  *
  * @author BareMetalCode
  */
@@ -36,7 +36,9 @@ public interface ExceptionConfig {
     int exceptionSTSuppressedDepth();
 
     /**
-     * Controls if the stacktrace is shown as a separate field<br>
+     * Controls if the stacktrace is shown as a separate field.
+     * <p>
+     *     FIXME: is this never used?!?!
      * defaults to {@code true}
      */
     @WithDefault("true")

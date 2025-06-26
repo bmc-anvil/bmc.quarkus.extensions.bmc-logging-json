@@ -47,13 +47,13 @@ import static java.util.Optional.ofNullable;
 public class LogFunctionsMappings {
 
     private static final BiFunction<ExtLogRecord, StructuredLog, String> GET_EX_CAUSED_BY        =
-            (record, _) -> ofNullable(record.getThrown().getCause()).map(Throwable::getMessage).orElse(null);
+            (record, log) -> ofNullable(record.getThrown().getCause()).map(Throwable::getMessage).orElse(null);
     private static final BiFunction<ExtLogRecord, StructuredLog, Object> GET_EX_FIELD            = StructuredExceptionUtils::printStructuredException;
-    private static final BiFunction<ExtLogRecord, StructuredLog, String> GET_EX_MESSAGE          = (record, _) -> record.getThrown().getMessage();
+    private static final BiFunction<ExtLogRecord, StructuredLog, String> GET_EX_MESSAGE          = (record, log) -> record.getThrown().getMessage();
     private static final BiFunction<ExtLogRecord, StructuredLog, Object> GET_EX_STACKTRACE_INNER = StructuredExceptionUtils::printInnerStackTrace;
     private static final BiFunction<ExtLogRecord, StructuredLog, String> GET_EX_STACKTRACE_TOP   = StructuredExceptionUtils::printClassicStackTrace;
     private static final BiFunction<ExtLogRecord, StructuredLog, String> GET_EX_TYPE             =
-            (record, _) -> record.getThrown().getClass().getName();
+            (record, log) -> record.getThrown().getClass().getName();
     //
     private static final Function<ExtLogRecord, String>                  GET_HOSTNAME            = ExtLogRecord::getHostName;
     private static final Function<ExtLogRecord, String>                  GET_LEVEL               = record -> record.getLevel().getName();
@@ -125,6 +125,7 @@ public class LogFunctionsMappings {
      * {@code
      * logger.infof("maybe a title for the message", logEntry(of("buyer", buyerUser),of("seller", sellerUser)));
      * }
+     * </pre>
      * will render something like:<br>
      * <pre>
      * {@code
@@ -172,7 +173,7 @@ public class LogFunctionsMappings {
                     map.put("_msgTag", extLogRecord.getMessage());
                 }
                 structuredMessage = map;
-            } catch (ClassCastException e) {
+            } catch (final ClassCastException e) {
                 // FIXME: could give some sort of option here instead of just exploding.
                 // leaving this during the lib stabilization phase.
                 // structuredMessage = extLogRecord.getMessage().formatted(messageParameters);

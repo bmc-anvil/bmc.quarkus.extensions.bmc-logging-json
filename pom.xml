@@ -13,7 +13,7 @@
     <parent>
         <groupId>com.bmc.platform</groupId>
         <artifactId>bmc-bom</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>0.0.1-local</version>
     </parent>
 
     <groupId>com.bmc.extensions</groupId>
@@ -24,6 +24,14 @@
     <name>BareMetalCode logging json parent</name>
     <description>Quarkus extension for configurable structured JSON Logging</description>
     <url>https://github.com/bmc-anvil/bmc-logging-json</url>
+
+    <repositories>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/bmc-anvil/*</url>
+        </repository>
+    </repositories>
 
     <modules>
         <module>deployment</module>
@@ -67,12 +75,4 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 </project>

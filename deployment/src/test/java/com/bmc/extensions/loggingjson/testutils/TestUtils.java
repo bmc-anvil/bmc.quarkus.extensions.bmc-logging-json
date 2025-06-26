@@ -15,6 +15,13 @@ public class TestUtils {
 
     private TestUtils() {}
 
+    /**
+     * Retrieves a {@link JsonConfig} from a {@link JsonFormatter}.
+     *
+     * @param formatter jsonFormatter to get config from
+     *
+     * @return a JsonConfig from the formatter
+     */
     public static JsonConfig extractJsonConfig(final JsonFormatter formatter) {
 
         try {
@@ -22,7 +29,7 @@ public class TestUtils {
             structuredLogField.setAccessible(true);
             final StructuredLog structuredLog = (StructuredLog) structuredLogField.get(formatter);
             return structuredLog.getJsonConfig();
-        } catch (NoSuchFieldException | IllegalAccessException e) {
+        } catch (final NoSuchFieldException | IllegalAccessException e) {
             throw new RuntimeException("Could not extract JsonConfig from JsonFormatter", e);
         }
     }
