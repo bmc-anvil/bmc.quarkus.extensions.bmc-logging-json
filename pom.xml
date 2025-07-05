@@ -13,7 +13,7 @@
     <parent>
         <groupId>com.bmc.platform</groupId>
         <artifactId>bmc-bom</artifactId>
-        <version>0.8.0-experimental</version>
+        <version>2e1ddec</version>
     </parent>
 
     <groupId>com.bmc.extensions</groupId>
@@ -76,28 +76,28 @@
         </dependency>
     </dependencies>
 
-    <build>
-        <plugins>
-            <!--
-                This plugin is inherited by all projects and needs to be skipped as it will break quarkus-extensions.
-                -
-                There were 2 ways to go about this:
-                1 - skipping the plugin via config override like below.
-                2 - remove the plugin at the parent level from general inclusion and add it to a "quarkus" profile invoke the profile via ci/cd
-                    when needed.
-                -
-                I chose option 1 as constantly activating the profile for local development and on pipelines is more a hindrance than this "exclusion"
-                in which no extra steps are required.
-             -->
-            <plugin>
-                <groupId>${quarkus.platform.group-id}</groupId>
-                <artifactId>quarkus-maven-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                    <skipSourceGeneration>true</skipSourceGeneration>
-                    <quarkus.prepare.skip>true</quarkus.prepare.skip>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+    <!-- <build> -->
+    <!--     <plugins> -->
+    <!--         &lt;!&ndash; -->
+    <!--             This plugin is inherited by all projects and needs to be skipped as it will break quarkus-extensions. -->
+    <!--             - -->
+    <!--             There were 2 ways to go about this: -->
+    <!--             1 - skipping the plugin via config override like below. -->
+    <!--             2 - remove the plugin at the parent level from general inclusion and add it to a "quarkus" profile invoke the profile via ci/cd -->
+    <!--                 when needed. -->
+    <!--             - -->
+    <!--             I chose option 1 as constantly activating the profile for local development and on pipelines is more a hindrance than this "exclusion" -->
+    <!--             in which no extra steps are required. -->
+    <!--          &ndash;&gt; -->
+    <!--         <plugin> -->
+    <!--             <groupId>${quarkus.platform.group-id}</groupId> -->
+    <!--             <artifactId>quarkus-maven-plugin</artifactId> -->
+    <!--             <configuration> -->
+    <!--                 <skip>true</skip> -->
+    <!--                 <skipSourceGeneration>true</skipSourceGeneration> -->
+    <!--                 <quarkus.prepare.skip>true</quarkus.prepare.skip> -->
+    <!--             </configuration> -->
+    <!--         </plugin> -->
+    <!--     </plugins> -->
+    <!-- </build> -->
 </project>
