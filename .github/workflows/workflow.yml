@@ -32,6 +32,9 @@ jobs:
                 continue-on-error: true
                 run: ./mvnw clean install -DskipTests
 
+            -   name: List Maven local repository (.m2)
+                run: ls -R ~/.m2
+
             -   name: test
                 continue-on-error: true
                 run: ./mvnw clean verify
