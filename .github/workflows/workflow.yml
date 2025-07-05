@@ -28,7 +28,11 @@ jobs:
                     restore-keys: |
                         ${{ runner.os }}-maven-
 
-            -   name: build and test
+            -   name: build
+                continue-on-error: true
+                run: ./mvnw clean install -DskipTests
+
+            -   name: test
                 continue-on-error: true
                 run: ./mvnw clean verify
 
