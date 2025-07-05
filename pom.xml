@@ -13,7 +13,7 @@
     <parent>
         <groupId>com.bmc.platform</groupId>
         <artifactId>bmc-bom</artifactId>
-        <version>0.0.1-local</version>
+        <version>0.6.0-experimental</version>
     </parent>
 
     <groupId>com.bmc.extensions</groupId>
