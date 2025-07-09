@@ -25,14 +25,6 @@
     <description>Quarkus extension for configurable structured JSON Logging</description>
     <url>https://github.com/bmc-anvil/bmc-logging-json</url>
 
-    <repositories>
-        <repository>
-            <id>github</id>
-            <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/bmc-anvil/*</url>
-        </repository>
-    </repositories>
-
     <modules>
         <module>deployment</module>
         <module>runtime</module>
