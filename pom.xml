@@ -13,7 +13,7 @@
     <parent>
         <groupId>bmc.dev.templates.maven</groupId>
         <artifactId>quarkus-parent</artifactId>
-        <version>0.0.1-local</version>
+        <version>1.0.0</version>
     </parent>
 
     <groupId>bmc.quarkus.extensions</groupId>
