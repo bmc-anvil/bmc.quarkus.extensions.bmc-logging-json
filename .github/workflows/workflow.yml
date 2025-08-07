@@ -2,7 +2,7 @@ name: build-test-publish
 on:
     workflow_dispatch:
         inputs:
-            tag-or-hash:
+            tag_or_hash:
                 description: "Optionally specify a Git Tag or commit hash to deploy"
                 required: false
                 type: string
@@ -15,15 +15,15 @@ on:
 
 jobs:
     build-test-publish:
-        uses: bmc-anvil/bmc-devops/.github/workflows/publish_package.yml@master
+        uses: bmc-anvil/.github/.github/workflows/publish_package.yml@master
         secrets:
-            PACKAGES_USER: ${{ secrets.PACKAGES_USER }}
-            PACKAGES_TOKEN_RW: ${{ secrets.PACKAGES_TOKEN_RW }}
+            PACKAGES_USER: ${{secrets.PACKAGES_USER}}
+            PACKAGES_TOKEN_RW: ${{secrets.PACKAGES_TOKEN_RW}}
             GH_TOKEN: ${{ github.token }}
         permissions:
             contents: read
             packages: write
             security-events: write
         with:
-            tag-or-hash: ${{ inputs.tag-or-hash }}
+            tag_or_hash: ${{ inputs.tag_or_hash }}
             deploy_package: true

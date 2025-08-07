@@ -11,12 +11,12 @@
         ways and keep bmc ones as much as possible.
     -->
     <parent>
-        <groupId>com.bmc.platform</groupId>
-        <artifactId>bmc-bom</artifactId>
-        <version>0.8.0-experimental</version>
+        <groupId>bmc.dev.templates.maven</groupId>
+        <artifactId>quarkus-parent</artifactId>
+        <version>0.0.1-local</version>
     </parent>
 
-    <groupId>com.bmc.extensions</groupId>
+    <groupId>bmc.quarkus.extensions</groupId>
     <artifactId>bmc-logging-json-parent</artifactId>
     <version>0.0.1-local</version>
     <packaging>pom</packaging>
@@ -32,8 +32,8 @@
 
     <properties>
         <!-- Keep properties in alphabetical order  -->
-        <!-- GitHub Packages Repository -->
-        <github.repository>bmc-anvil/bmc-logging-json</github.repository>
+        <!-- GitHub Repositories Config-->
+        <github.repository>${project.groupId}.bmc-logging-json</github.repository>
     </properties>
 
     <dependencies>
@@ -67,29 +67,4 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <!--
-                This plugin is inherited by all projects and needs to be skipped as it will break quarkus-extensions.
-                -
-                There were 2 ways to go about this:
-                1 - skipping the plugin via config override like below.
-                2 - remove the plugin at the parent level from general inclusion and add it to a "quarkus" profile invoke the profile via ci/cd
-                    when needed.
-                -
-                I chose option 1 as constantly activating the profile for local development and on pipelines is more a hindrance than this "exclusion"
-                in which no extra steps are required.
-             -->
-            <plugin>
-                <groupId>${quarkus.platform.group-id}</groupId>
-                <artifactId>quarkus-maven-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                    <skipSourceGeneration>true</skipSourceGeneration>
-                    <quarkus.prepare.skip>true</quarkus.prepare.skip>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>
