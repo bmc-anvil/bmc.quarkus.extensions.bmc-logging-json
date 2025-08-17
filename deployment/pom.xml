@@ -6,7 +6,7 @@
     <parent>
         <groupId>bmc.quarkus.extensions</groupId>
         <artifactId>bmc-logging-json-parent</artifactId>
-        <version>0.0.1-local</version>
+        <version>bmc-local</version>
     </parent>
 
     <artifactId>bmc-logging-json-deployment</artifactId>
@@ -42,4 +42,18 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>bmc-resources-without-overwrite-parents</id>
+                        <phase>none</phase>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

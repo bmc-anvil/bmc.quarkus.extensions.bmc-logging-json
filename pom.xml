@@ -13,12 +13,12 @@
     <parent>
         <groupId>bmc.dev.templates.maven</groupId>
         <artifactId>bmc-quarkus-parent</artifactId>
-        <version>1.1.0</version>
+        <version>cd63435</version>
     </parent>
 
     <groupId>bmc.quarkus.extensions</groupId>
     <artifactId>bmc-logging-json-parent</artifactId>
-    <version>0.0.1-local</version>
+    <version>bmc-local</version>
     <packaging>pom</packaging>
 
     <name>BareMetalCode logging json parent</name>
