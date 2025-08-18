@@ -1,7 +1,6 @@
 package com.bmc.extensions.loggingjson.deployment;
 
 import com.bmc.extensions.loggingjson.runtime.LoggingJsonRecorder;
-import com.bmc.extensions.loggingjson.runtime.config.JsonLogConfig;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
@@ -15,8 +14,6 @@ import static com.bmc.extensions.loggingjson.runtime.models.enums.LogOutput.FILE
 
 /**
  * {@link  BuildStep} class responsible for configuring and enabling JSON log formatters
- * <p>
- * The configuration depends on the JSON-related settings provided through the application's configuration files.
  *
  * @author BareMetalCode
  */
@@ -32,16 +29,16 @@ public class LoggingJsonStepBuilder {
 
     @BuildStep
     @Record(ExecutionTime.RUNTIME_INIT)
-    LogConsoleFormatBuildItem setUpConsoleFormatter(final LoggingJsonRecorder recorder, final JsonLogConfig config) {
+    LogConsoleFormatBuildItem setUpConsoleFormatter(final LoggingJsonRecorder recorder) {
 
-        return new LogConsoleFormatBuildItem(recorder.getJsonFormatterForLogOutputType(config, CONSOLE));
+        return new LogConsoleFormatBuildItem(recorder.getJsonFormatterForLogOutputType(CONSOLE));
     }
 
     @BuildStep
     @Record(ExecutionTime.RUNTIME_INIT)
-    LogFileFormatBuildItem setUpFileFormatter(final LoggingJsonRecorder recorder, final JsonLogConfig config) {
+    LogFileFormatBuildItem setUpFileFormatter(final LoggingJsonRecorder recorder) {
 
-        return new LogFileFormatBuildItem(recorder.getJsonFormatterForLogOutputType(config, FILE));
+        return new LogFileFormatBuildItem(recorder.getJsonFormatterForLogOutputType(FILE));
     }
 
 }
