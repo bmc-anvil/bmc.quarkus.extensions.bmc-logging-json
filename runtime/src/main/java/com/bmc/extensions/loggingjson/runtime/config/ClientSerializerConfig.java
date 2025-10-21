@@ -38,40 +38,35 @@ public interface ClientSerializerConfig {
     /**
      * Convenience formatter for client app {@link Instant} instances using {@link DateTimeFormatter} string patterns.
      *
-     * @see
-     * <a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/time/format/DateTimeFormatter.html">DateTimeFormatter Patterns</a>
+     * @see <a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/time/format/DateTimeFormatter.html">DateTimeFormatter Patterns</a>
      */
     Optional<String> instantFormat();
 
     /**
      * Convenience formatter for client app {@link LocalDate} instances using {@link DateTimeFormatter} string patterns.
      *
-     * @see
-     * <a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/time/format/DateTimeFormatter.html">DateTimeFormatter Patterns</a>
+     * @see <a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/time/format/DateTimeFormatter.html">DateTimeFormatter Patterns</a>
      */
     Optional<String> localDateFormat();
 
     /**
      * Convenience formatter for client app {@link LocalDateTime} instances using {@link DateTimeFormatter} string patterns.
      *
-     * @see
-     * <a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/time/format/DateTimeFormatter.html">DateTimeFormatter Patterns</a>
+     * @see <a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/time/format/DateTimeFormatter.html">DateTimeFormatter Patterns</a>
      */
     Optional<String> localDateTimeFormat();
 
     /**
      * Convenience formatter for client app {@link LocalTime} instances using {@link DateTimeFormatter} string patterns.
      *
-     * @see
-     * <a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/time/format/DateTimeFormatter.html">DateTimeFormatter Patterns</a>
+     * @see <a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/time/format/DateTimeFormatter.html">DateTimeFormatter Patterns</a>
      */
     Optional<String> localTimeFormat();
 
     /**
      * Convenience formatter for client app {@link ZonedDateTime} instances using {@link DateTimeFormatter} string patterns.
      *
-     * @see
-     * <a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/time/format/DateTimeFormatter.html">DateTimeFormatter Patterns</a>
+     * @see <a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/time/format/DateTimeFormatter.html">DateTimeFormatter Patterns</a>
      */
     Optional<String> zonedDateTimeFormat();
 

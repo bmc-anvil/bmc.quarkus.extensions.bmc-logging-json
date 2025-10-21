@@ -4,25 +4,25 @@ artifact: ${project.groupId}:${project.artifactId}:${project.version}
 description: "Logging structured JSON formatting support"
 guide: "https://github.com/bmc-anvil/bmc.quarkus.extensions.bmc-logging-json"
 metadata:
-    keywords:
-        - "core"
-        - "formatter"
-        - "jackson"
-        - "json"
-        - "logging"
-        - "structured"
-    categories:
-        - "core"
-        - "logging"
-    status: "experimental"
-    guide: ""
-    config:
-        - "quarkus.log.console.json."
-        - "quarkus.log.file.json."
-    built-with-quarkus-core: "3.25.2"
-    requires-quarkus-core: "[3.18,)"
-    minimum-java-version: "24"
-    extension-dependencies:
-        - "io.quarkus:quarkus-arc"
-        - "io.quarkus:quarkus-core"
-        - "io.quarkus:quarkus-jackson"
+  keywords:
+    - "core"
+    - "formatter"
+    - "jackson"
+    - "json"
+    - "logging"
+    - "structured"
+  categories:
+    - "core"
+    - "logging"
+  status: "experimental"
+  guide: ""
+  config:
+    - "quarkus.log.console.json."
+    - "quarkus.log.file.json."
+  built-with-quarkus-core: "3.25.2"
+  requires-quarkus-core: "[3.18,)"
+  minimum-java-version: "24"
+  extension-dependencies:
+    - "io.quarkus:quarkus-arc"
+    - "io.quarkus:quarkus-core"
+    - "io.quarkus:quarkus-jackson"

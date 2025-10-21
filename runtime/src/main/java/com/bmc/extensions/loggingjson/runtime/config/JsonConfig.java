@@ -68,8 +68,7 @@ public interface JsonConfig {
      * You can customize the date-time format of your own objects by adding a serializer for a {@link Temporal} type data
      * by adding them in the customSerializers configuration
      *
-     * @see
-     * <a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/time/format/DateTimeFormatter.html">DateTimeFormatter Patterns</a>
+     * @see <a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/time/format/DateTimeFormatter.html">DateTimeFormatter Patterns</a>
      */
     Optional<String> logDateTimeFormat();
 

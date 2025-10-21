@@ -41,7 +41,7 @@ public class SerializerUtils {
      * and must have a no-argument constructor.
      *
      * @param jsonConfig the configuration source containing client-defined custom serializers
-     * @param mapper the {@link ObjectMapper} instance to which the custom serializers will be registered
+     * @param mapper     the {@link ObjectMapper} instance to which the custom serializers will be registered
      */
     public static void addCustomSerializersIfAny(final JsonConfig jsonConfig, final ObjectMapper mapper) {
 
